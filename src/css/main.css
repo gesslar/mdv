@@ -13,10 +13,13 @@
   /* Theme variables should be set in :root or Tailwind config. */
 }
 
-
+@theme inline {
+  --color-primary: var(--color-pink-500);
+  --text-base: 1.24rem;
+}
 
 @layer base {
-
+  /* https://tailwindcss.com/docs/upgrade-guide#buttons-use-the-default-cursor */
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
@@ -58,7 +61,8 @@
 }
 
 main {
-  margin: 2vh 2vw;
+  margin: 1rem;
+  padding: 1rem;
 
   #preview {
     a {
@@ -74,13 +78,16 @@ main {
   transform: scale(5rem);
 }
 
-#drop-zone,
 #watermark,
 #preview {
   &.hovering {
     background-color: color-mix(in srgb, var(--color-pink-500) 10%, transparent);
-    /* outline: .2rem dotted var(--color-pink-500); */
-    outline: red solid 3px;
+    outline: .2rem dotted var(--color-pink-500);
+  }
+
+  pre,
+  code {
+    white-space: pre-wrap;
   }
 }
 
@@ -95,7 +102,7 @@ main {
 }
 
 #preview {
- pre,
+  pre,
   code {
     white-space: pre-wrap;
     border: none;
