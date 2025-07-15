@@ -105,13 +105,6 @@ async function browseFile() {
 }
 
 function initializeDragAndDrop() {
-  const dropZone = document.getElementById("drop-zone")
-
-  if(!dropZone) {
-    console.error("Could not find #drop-zone element.")
-    return
-  }
-
   // Set up drag and drop event listeners
   ;["dragenter", "dragover"].forEach(en =>
     window.addEventListener(en, enter, false)

@@ -10,20 +10,27 @@
 }
 
 @theme inline {
-  --color-primary: var(--color-pink-400);
+  --color-primary: var(--color-pink-500);
   --text-base: 1.24rem;
+}
+
+@layer base {
+  /* https://tailwindcss.com/docs/upgrade-guide#buttons-use-the-default-cursor */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
 @layer components {
   .btn {
     border-radius: var(--radius-xs);
-    background-color: var(--color-violet-500);
+    background-color: var(--color-pink-500);
     padding-inline: --spacing(5);
     padding-block: --spacing(2);
-    font-weight: var(--font-weight-thin);
+    font-weight: var(--font-weight-light);
     color: var(--color-white);
     box-shadow: var(--shadow-md);
-    cursor: var(--cursor-help);
 
     &:hover {
       @media (hover: hover) {
@@ -44,7 +51,8 @@
 }
 
 main {
-  margin: 2vh 2vw;
+  margin: 1rem;
+  padding: 1rem;
 
   #preview {
     a {
@@ -60,7 +68,6 @@ main {
   transform:scale(5rem);
 }
 
-#drop-zone,
 #watermark,
 #preview {
   &.hovering {
@@ -68,15 +75,19 @@ main {
     /* outline: .2rem dotted var(--color-pink-500); */
     outline: red solid 3px;
   }
+
+  pre,
+  code {
+    white-space: pre-wrap;
+  }
 }
 
-#watermark {
+/* #watermark {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
-  /* color: var(--pico-muted-color); */
   font-size: 1.2rem;
   opacity: 0.5;
 }
@@ -86,7 +97,7 @@ main {
   code {
     white-space: pre-wrap;
   }
-}
+} */
 
 /* External link icon styling */
 .external-link-icon {
