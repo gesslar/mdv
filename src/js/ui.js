@@ -212,6 +212,11 @@ function displayContent(text) {
   preview.style.display = "block"
 
   hljs.highlightAll()
+
+  preview.scrollTo({
+  top: 0,
+  behavior: "smooth"
+});
 }
 
 // Export functions for use in other modules
