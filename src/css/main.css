@@ -74,10 +74,13 @@ main {
   transform: scale(5rem);
 }
 
-#drop-zone {
+#drop-zone,
+#watermark,
+#preview {
   &.hovering {
     background-color: color-mix(in srgb, var(--color-pink-500) 10%, transparent);
-    outline: .2rem dotted var(--color-pink-500);
+    /* outline: .2rem dotted var(--color-pink-500); */
+    outline: red solid 3px;
   }
 }
 
@@ -92,8 +95,7 @@ main {
 }
 
 #preview {
-
-  pre,
+ pre,
   code {
     white-space: pre-wrap;
     border: none;
