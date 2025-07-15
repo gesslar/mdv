@@ -85,17 +85,78 @@ function initializeUI() {
   initializeOpenButton()
 }
 
+function getMainWidgets(){
+  const widgetIds = ["preview", "watermark"]
+  const widgets = widgetIds
+    .map(id => document.getElementById(id))
+    .filter(Boolean)
+
+  if(widgets.length !== widgetIds.length) {
+    console.error("Missing required UI elements:",
+      widgetIds.filter(id => !document.getElementById(id))
+    )
+    resetContent()
+    return null
+  }
+
+  // Convert to an object and return
+  return widgetIds.reduce((acc, id, index) => {
+    acc[id] = widgets[index]
+    return acc
+  }, {})
+}
+
+function getVisibleMain() {
+  const widgets = getMainWidgets()
+
+  if(!widgets) {
+    console.error("Failed to get main widgets, resetting content.")
+    resetContent()
+    return null
+  }
+
+  const shown = Object.values(widgets)
+    .filter(w => {
+      const display = getComputedStyle(w).display
+      return display && display !== "none"
+    })
+
+  if(!shown) {
+    console.error("No visible main content found, resetting to watermark.")
+    resetContent()
+    return null
+  }
+
+  switch(shown.length) {
+    case 0:
+      console.error("No main widgets visible, resetting to watermark.")
+      resetContent()
+      return null
+    case 1:
+      // Only one widget visible, return it
+      return shown[0]
+    default:
+      console.error("Multiple main widgets visible, resetting to watermark.")
+      resetContent()
+      return null
+  }
+}
+
 function hoverEffect(e) {
-  // console.log("Hover effect triggered on", e.target)
-  console.log("classes:", e.target.classList)
-  if(!e.target.classList.contains("hovering"))
-    e.target.classList.add("hovering")
+  const main = getVisibleMain()
+
+  console.info("Hover effect on main:", main?.id)
+
+  if(main)
+    main.classList.add("hovering")
 }
 
 function removeHoverEffect(e) {
-  // console.log("Removing hover effect from", e.target)
-  if(e.target.classList.contains("hovering"))
-    e.target.classList.remove("hovering")
+  const main = getVisibleMain()
+
+  if(main)
+    main.classList.remove("hovering")
+
 }
 
 function disableMenu() {
@@ -113,13 +174,57 @@ function disableMenu() {
   }, { capture: true })
 }
 
+function swapVisibility() {
+  const widgets = getMainWidgets()
+
+  for(const [_, widget] of Object.entries(widgets)) {
+    if(!widget)
+      continue
+
+    if(widget.style.display === "none") {
+      widget.style.display = "block"
+    } else {
+      widget.style.display = "none"
+    }
+  }
+}
+
+function resetContent() {
+  const preview = document.getElementById("preview")
+  const watermark = document.getElementById("watermark")
+
+  preview.innerHTML = ""
+  watermark.style.display = "block"
+  preview.style.display = "none"
+}
+
+function displayContent(text) {
+  const preview = document.getElementById("preview")
+  const watermark = document.getElementById("watermark")
+
+  if(!(typeof text === "string" && text.trim().length > 0)) {
+    console.warn("No content to display.")
+    return
+  }
+
+  preview.innerHTML = marked.parse(text)
+  watermark.style.display = "none"
+  preview.style.display = "block"
+
+  hljs.highlightAll()
+}
+
 // Export functions for use in other modules
 window.mdvUI = {
-  setTheme,
-  toggleThemeMenu,
+  disableMenu,
+  displayContent,
+  getVisibleMain,
   hideThemeMenu,
-  initializeUI,
   hoverEffect,
+  initializeUI,
   removeHoverEffect,
-  disableMenu
+  resetContent,
+  setTheme,
+  swapVisibility,
+  toggleThemeMenu,
 }

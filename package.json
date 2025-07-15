@@ -4,12 +4,12 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "tailwind-build": "npx @tailwindcss/cli -i ./src/css/main.css -o ./src/css/mdv.css",
+    "tailwind-watch": "npx @tailwindcss/cli -i ./src/css/main.css -o ./src/css/mdv.css --watch",
     "tauri": "tauri",
     "tauri-watch": "tauri dev",
-    "buildcss": "npx @tailwindcss/cli -i ./src/css/main.css -o ./src/css/mdv.css",
-    "watchcss": "npx @tailwindcss/cli -i ./src/css/main.css -o ./src/css/mdv.css --watch",
-    "build": "tauri build",
-    "bundle": "tauri bundle"
+    "tauri-build": "tauri build",
+    "tauri-bundle": "tauri bundle"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.11",
