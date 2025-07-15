@@ -38,24 +38,7 @@ function initializeMarked() {
   return true
 }
 
-function displayContent(text) {
-  const preview = document.getElementById("preview")
-  const watermark = document.getElementById("watermark")
-
-  if(!(typeof text === "string" && text.trim().length > 0)) {
-    console.warn("No content to display.")
-    return
-  }
-
-  preview.innerHTML = marked.parse(text)
-  watermark.style.display = "none"
-  preview.style.display = "block"
-
-  hljs.highlightAll()
-}
-
 // Export functions for use in other modules
 window.mdvSetup = {
-  initializeMarked,
-  displayContent
+  initializeMarked
 }

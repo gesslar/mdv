@@ -65,7 +65,7 @@ async function handleFileDrop(e) {
     return
   }
 
-  window.mdvSetup.displayContent(content)
+  window.mdvUI.displayContent(content)
 }
 
 async function browseFile() {
@@ -101,7 +101,7 @@ async function browseFile() {
     return
   }
 
-  window.mdvSetup.displayContent(content)
+  window.mdvUI.displayContent(content)
 }
 
 function initializeDragAndDrop() {
@@ -114,13 +114,16 @@ function initializeDragAndDrop() {
 
   // Set up drag and drop event listeners
   ;["dragenter", "dragover"].forEach(en =>
-    dropZone.addEventListener(en, enter, false)
+    window.addEventListener(en, enter, false)
+    // dropZone.addEventListener(en, enter, false)
   )
   ;["dragleave", "drop"].forEach(en =>
-    dropZone.addEventListener(en, leave, false)
+    window.addEventListener(en, leave, false)
+    // dropZone.addEventListener(en, leave, false)
   )
 
-  dropZone.addEventListener("drop", handleFileDrop)
+  // dropZone.addEventListener("drop", handleFileDrop)
+  window.addEventListener("drop", handleFileDrop)
 }
 
 function initializeFileHandler() {
