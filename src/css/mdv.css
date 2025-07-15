@@ -237,6 +237,9 @@
   .invisible {
     visibility: hidden;
   }
+  .visible {
+    visibility: visible;
+  }
   .absolute {
     position: absolute;
   }
@@ -1034,13 +1037,13 @@ main {
   color: var(--color-pink-500);
   transform: scale(5rem);
 }
-#drop-zone {
+#drop-zone, #watermark, #preview {
   &.hovering {
     background-color: color-mix(in srgb, oklch(65.6% 0.241 354.308) 10%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in srgb, var(--color-pink-500) 10%, transparent);
     }
-    outline: .2rem dotted var(--color-pink-500);
+    outline: red solid 3px;
   }
 }
 #watermark {
