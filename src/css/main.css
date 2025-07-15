@@ -1,0 +1,127 @@
+@import "../assets/fonts/stylesheet.css";
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+@config "../../tailwind.config.js";
+
+:root {
+  --font-sans: "Noto Sans", cursive;
+  --font-mono: "Victor Mono", cursive;
+}
+
+@theme inline {
+  --color-primary: var(--color-pink-400);
+  --text-base: 1.24rem;
+}
+
+@layer components {
+  .btn {
+    border-radius: var(--radius-xs);
+    background-color: var(--color-violet-500);
+    padding-inline: --spacing(5);
+    padding-block: --spacing(2);
+    font-weight: var(--font-weight-thin);
+    color: var(--color-white);
+    box-shadow: var(--shadow-md);
+    cursor: var(--cursor-help);
+
+    &:hover {
+      @media (hover: hover) {
+        filter: grayscale(var(--filter-grayscale));
+        transform:scale(1.1);
+      }
+    }
+
+    &:active {
+      transform:scale(1.05);
+    }
+  }
+
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+}
+
+main {
+  margin: 2vh 2vw;
+
+  #preview {
+    a {
+      text-underline-offset: 0.3em; /* Move all underlines below descenders */
+      text-decoration-style: dotted; /* Make underlines dotted */
+      text-decoration-color: color-mix(in srgb, var(--color-pink-400) 50%, transparent); /* 50% transparent pink */
+    }
+  }
+}
+
+.accent-text {
+  color: var(--color-pink-500);
+  transform:scale(5rem);
+}
+
+#drop-zone {
+  &.hovering {
+    background-color: color-mix(in srgb, var(--color-pink-500) 10%, transparent);
+    outline: .2rem dotted var(--color-pink-500);
+  }
+}
+
+#watermark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  /* color: var(--pico-muted-color); */
+  font-size: 1.2rem;
+  opacity: 0.5;
+}
+
+#preview {
+
+  pre,
+  code {
+    white-space: pre-wrap;
+  }
+}
+
+/* External link icon styling */
+.external-link-icon {
+  display: inline-block;
+  width: 0.875rem; /* 14px - back to original size */
+  height: 0.875rem; /* 14px */
+  margin-left: 0.25rem; /* 4px - back to original spacing */
+  background-image: url('../assets/icons/open_in_new_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: baseline;
+  opacity: 0.8;
+  transition: all var(--default-transition-duration) var(--default-transition-timing-function);
+  transform: scale(1); /* explicit initial transform */
+  /* Use the same pink as accent-text */
+  filter: brightness(0) saturate(100%) invert(65%) sepia(24%) saturate(354%) hue-rotate(308deg) brightness(106%) contrast(91%);
+}
+
+/* Hover effect for better UX */
+a:hover .external-link-icon {
+  opacity: 1;
+  transform: scale(1.1); /* slight scale on hover for extra emphasis */
+}
+
+/* Also add hover directly on the icon itself */
+.external-link-icon:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Dark theme support - keep the pink color but adjust for readability */
+.dark .external-link-icon {
+  filter: brightness(0) saturate(100%) invert(65%) sepia(24%) saturate(354%) hue-rotate(308deg) brightness(120%) contrast(95%);
+}
+
+/* Light theme support - slightly darker pink for better contrast */
+.light .external-link-icon {
+  filter: brightness(0) saturate(100%) invert(65%) sepia(24%) saturate(354%) hue-rotate(308deg) brightness(90%) contrast(95%);
+}
