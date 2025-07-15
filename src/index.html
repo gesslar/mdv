@@ -1,39 +1,80 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="styles.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tauri App</title>
-    <script type="module" src="/main.js" defer></script>
-  </head>
+<!DOCTYPE html>
+<html lang="en" class="h-full forced-color-adjust-auto">
 
-  <body>
-    <main class="container">
-      <h1>Welcome to Tauri</h1>
+<head>
+  <meta charset="UTF-8">
+  <title>mdv like a mofo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <div class="row">
-        <a href="https://tauri.app" target="_blank">
-          <img src="/assets/tauri.svg" class="logo tauri" alt="Tauri logo" />
-        </a>
-        <a
-          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-          target="_blank"
-        >
-          <img
-            src="/assets/javascript.svg"
-            class="logo vanilla"
-            alt="JavaScript logo"
-          />
-        </a>
+  <script>
+    const saved = localStorage.getItem("mdv-theme")
+    if(saved === "light" || saved === "dark")
+      document.documentElement.classList.add(saved)
+  </script>
+
+  <link rel="stylesheet" href="css/mdv.css">
+  <link id="hljs-theme" rel="stylesheet" href="css/github-dark.css">
+
+  <script src="js/marked.min.js" defer></script>
+  <script src="js/highlight.min.js" defer></script>
+  <script src="js/purify.min.js" defer></script>
+  <script src="js/setup.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/fileHandler.js" defer></script>
+  <script src="js/mdv.js" defer></script>
+</head>
+
+<body class="h-full flex flex-col font-sans bg-white text-black dark:bg-zinc-950 dark:text-zinc-100">
+
+  <header class="bg-zinc-900 border-b border-zinc-800 text-zinc-100 select-none not-prose">
+
+    <nav class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="text-xl font-bold tracking-wide">
+        MDV <span class="accent-text">Bitches</span>
       </div>
-      <p>Click on the Tauri logo to learn more about the framework</p>
 
-      <form class="row" id="greet-form">
-        <input id="greet-input" placeholder="Enter a name..." />
-        <button type="submit">Greet</button>
-      </form>
-      <p id="greet-msg"></p>
-    </main>
-  </body>
+      <ul class="flex gap-4 items-center text-sm font-medium">
+        <li class="relative">
+          <button id="themeToggle" class="cursor-pointer flex items-center gap-1">
+            Theme
+            <svg id="themeArrow" class="w-4 h-4 transition-transform" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" />
+            </svg>
+          </button>
+          <ul id="themeMenu"
+              class="absolute top-full mt-1 right-0 bg-zinc-800 border border-zinc-700 rounded shadow-lg py-1 w-32 hidden z-10">
+            <li><a href="#" data-theme-switcher="auto" class="block px-3 py-1 hover:bg-zinc-700">Auto</a></li>
+            <li><a href="#" data-theme-switcher="light" class="block px-3 py-1 hover:bg-zinc-700">Light</a></li>
+            <li><a href="#" data-theme-switcher="dark" class="block px-3 py-1 hover:bg-zinc-700">Dark</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <button id="openButton" class="btn btn-primary">
+            Open
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="drop-zone" class="flex-1 overflow-y-auto px-6 py-8 relative transition-all duration-300">
+    <section id="watermark"
+      class="absolute inset-0 flex flex-col items-center justify-center text-zinc-500 opacity-50 pointer-events-none select-none">
+      <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round" class="mb-4 text-zinc-600">
+        <path d="M12 5v14M5 12h14" />
+      </svg>
+      <p class="text-center text-lg">Drop a Markdown file here or click <a href="javascript:fileInput.click()">Open</a></p>
+    </section>
+    <section id="preview" class="p-4 shadow-indigo-500/50 shadow-xl/30 markdown prose border-1 border-zinc-700/25 dark:prose-invert max-w-none hidden">
+    </section>
+  </main>
+
+  <footer class="text-xs text-zinc-600 text-center py-2 border-t border-zinc-800 select-none not-prose">
+    &copy; &infin; nobody 🐩🐩🐩
+  </footer>
+
+</body>
+
 </html>
