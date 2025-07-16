@@ -7,6 +7,8 @@
 :root {
   --font-sans: "Noto Sans", cursive;
   --font-mono: "Victor Mono", cursive;
+  --default-transition: all var(--default-transition-duration) var(--default-transition-timing-function);
+  --mono-font-features: var(--default-mono-font-feature-settings, normal), "liga" 0;
 }
 
 @theme inline {
@@ -20,6 +22,7 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+
 }
 
 @layer components {
@@ -28,7 +31,7 @@
     background-color: var(--color-pink-500);
     padding-inline: --spacing(5);
     padding-block: --spacing(2);
-    font-weight: var(--font-weight-light);
+    font-weight: var(--font-weight-medium);
     color: var(--color-white);
     box-shadow: var(--shadow-md);
 
@@ -53,58 +56,72 @@
 main {
   margin: 1rem;
   padding: 1rem;
+  transition: var(--default-transition);
+
+  #plus {
+    transition: var(--default-transition);
+
+    &.dragging {
+      transform:  rotate(360deg)
+                  scale(115%);
+      opacity: 50%;
+    }
+  }
 
   #preview {
     a {
-      text-underline-offset: 0.3em; /* Move all underlines below descenders */
-      text-decoration-style: dotted; /* Make underlines dotted */
-      text-decoration-color: color-mix(in srgb, var(--color-pink-400) 50%, transparent); /* 50% transparent pink */
+      text-underline-offset: 0.3em;
+      text-decoration-style: dotted;
+      text-decoration-color: color-mix(in srgb, var(--color-pink-500) 50%, transparent);
     }
+
+    pre, code, samp, kbd {
+      white-space: pre-wrap;
+      border: none;
+      background: transparent;
+      font-feature-settings: var(--mono-font-features);
+    }
+
+    pre {
+      padding: 0.5rem;
+      margin: 0;
+      outline: 1px solid color-mix(in srgb, var(--color-pink-500) 15%, transparent);
+      border-radius: 3px;
+      background-color: color-mix(in srgb, var(--color-pink-500) 1%, transparent);
+    }
+
+    hr {
+      border: none;
+      height: 0.1rem;
+      background-color: color-mix(in srgb, var(--color-pink-500) 15%, transparent);
+    }
+
+    table, caption,
+    tr, th, td,
+    thead, tbody, tfoot,
+    colgroup {
+      border-color: color-mix(in srgb, var(--color-pink-500) 10%, transparent);
+    }
+
+  }
+
+  &.dragging {
+    background-color: color-mix(in srgb, var(--color-pink-500) 10%, transparent);
+    outline: .2rem dotted var(--color-pink-500);
   }
 }
 
 .accent-text {
   color: var(--color-pink-500);
-  transform:scale(5rem);
+  transform: scale(5rem);
 }
-
-#watermark,
-#preview {
-  &.hovering {
-    background-color: color-mix(in srgb, var(--color-pink-500) 10%, transparent);
-    /* outline: .2rem dotted var(--color-pink-500); */
-    outline: red solid 3px;
-  }
-
-  pre,
-  code {
-    white-space: pre-wrap;
-  }
-}
-
-/* #watermark {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 1.2rem;
-  opacity: 0.5;
-}
-
-#preview {
- pre,
-  code {
-    white-space: pre-wrap;
-  }
-} */
 
 /* External link icon styling */
 .external-link-icon {
   display: inline-block;
-  width: 0.875rem; /* 14px - back to original size */
-  height: 0.875rem; /* 14px */
-  margin-left: 0.25rem; /* 4px - back to original spacing */
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-left: 0.25rem;
   background-image: url('../assets/icons/open_in_new_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg');
   background-size: contain;
   background-repeat: no-repeat;
