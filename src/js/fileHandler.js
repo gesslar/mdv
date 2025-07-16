@@ -29,13 +29,19 @@ function preventDefaults(e) {
 }
 
 function enter(e) {
+  window.mdvUI.dragLeaveTimeout && clearTimeout(window.mdvUI.dragLeaveTimeout)
+
   preventDefaults(e)
-  window.mdvUI.hoverEffect(e)
+
+  window.mdvUI.addDragEffect(e)
 }
 
 function leave(e) {
+  window.mdvUI.dragLeaveTimeout && clearTimeout(window.mdvUI.dragLeaveTimeout)
+
   preventDefaults(e)
-  window.mdvUI.removeHoverEffect(e)
+
+  window.mdvUI.dragLeaveTimeout = setTimeout(() => removeDragEffect(e), 50)
 }
 
 async function handleFileDrop(e) {
@@ -106,16 +112,13 @@ async function browseFile() {
 
 function initializeDragAndDrop() {
   // Set up drag and drop event listeners
-  ;["dragenter", "dragover"].forEach(en =>
-    window.addEventListener(en, enter, false)
-    // dropZone.addEventListener(en, enter, false)
+  ;["dragenter", "dragover"].forEach(eventName =>
+    window.addEventListener(eventName, enter, false)
   )
-  ;["dragleave", "drop"].forEach(en =>
-    window.addEventListener(en, leave, false)
-    // dropZone.addEventListener(en, leave, false)
+  ;["dragleave", "drop"].forEach(eventName =>
+    window.addEventListener(eventName, leave, false)
   )
 
-  // dropZone.addEventListener("drop", handleFileDrop)
   window.addEventListener("drop", handleFileDrop)
 }
 

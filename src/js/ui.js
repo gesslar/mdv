@@ -142,21 +142,27 @@ function getVisibleMain() {
   }
 }
 
-function hoverEffect(e) {
-  const main = getVisibleMain()
-
-  console.info("Hover effect on main:", main?.id)
-
-  if(main)
-    main.classList.add("hovering")
+function toggleDragEffect(element) {
+  if(element.classList.contains("dragging"))
+    element.classList.remove("dragging")
+  else
+    element.classList.add("dragging")
 }
 
-function removeHoverEffect(e) {
-  const main = getVisibleMain()
+function addDragEffect(e) {
+  const elements = ["mainView", "plusIcon"]
+    .map(id => document.getElementById(id))
+    .filter(element => !element.classList.contains("dragging"))
 
-  if(main)
-    main.classList.remove("hovering")
+  elements.filter(element => toggleDragEffect(element))
+}
 
+function removeDragEffect(e) {
+  const elements = ["mainView", "plusIcon"]
+    .map(id => document.getElementById(id))
+    .filter(element => element.classList.contains("dragging"))
+
+  elements.filter(element => toggleDragEffect(element))
 }
 
 function disableMenu() {
@@ -225,9 +231,9 @@ window.mdvUI = {
   displayContent,
   getVisibleMain,
   hideThemeMenu,
-  hoverEffect,
+  addDragEffect,
   initializeUI,
-  removeHoverEffect,
+  removeDragEffect,
   resetContent,
   setTheme,
   swapVisibility,
