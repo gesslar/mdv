@@ -871,9 +871,6 @@
   .text-zinc-600 {
     color: var(--color-zinc-600);
   }
-  .underline {
-    text-decoration-line: underline;
-  }
   .opacity-10 {
     opacity: 10%;
   }
@@ -891,15 +888,6 @@
   .outline {
     outline-style: var(--tw-outline-style);
     outline-width: 1px;
-  }
-  .outline-pink-500 {
-    outline-color: var(--color-pink-500);
-  }
-  .outline-pink-500\/10 {
-    outline-color: color-mix(in srgb, oklch(65.6% 0.241 354.308) 10%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      outline-color: color-mix(in oklab, var(--color-pink-500) 10%, transparent);
-    }
   }
   .outline-pink-500\/25 {
     outline-color: color-mix(in srgb, oklch(65.6% 0.241 354.308) 25%, transparent);
@@ -1010,11 +998,13 @@ main {
   margin: 1rem;
   padding: 1rem;
   transition: var(--default-transition);
-  #plus {
-    transition: var(--default-transition);
-    &.dragging {
-      transform: rotate(360deg) scale(115%);
-      opacity: 50%;
+  #watermark {
+    #plusIcon {
+      transition: var(--default-transition);
+      &.dragging {
+        transform: rotate(360deg) scale(115%);
+        opacity: 50%;
+      }
     }
   }
   #preview {
