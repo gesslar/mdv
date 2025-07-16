@@ -1,5 +1,3 @@
-// File handling - drag/drop, file validation, file opening
-
 const validMimeTypes = ["text/markdown", "application/x-markdown"]
 const validExtensions = ["md", "markdown"]
 
