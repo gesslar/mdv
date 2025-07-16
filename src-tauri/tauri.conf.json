@@ -46,5 +46,17 @@
     ],
     "license": "Unlicense",
     "licenseFile": "UNLICENSE"
+  },
+  "plugins": {
+    "cli": {
+      "description": "Accept file associations and cli arguments.",
+      "args": [
+        {
+          "name": "source",
+          "index": 1,
+          "takesValue": true
+        }
+      ]
+    }
   }
 }

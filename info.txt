@@ -1,0 +1,42 @@
+
+> mdv@0.1.0 tauri
+> tauri info
+
+
+[✔] Environment
+    - OS: Ubuntu 25.4.0 x86_64 (X64) (KDE on wayland)
+    ✔ webkit2gtk-4.1: 2.48.3
+    ✔ rsvg2: 2.60.0
+    ✔ rustc: 1.88.0 (6b00bc388 2025-06-23)
+    ✔ cargo: 1.88.0 (873a06493 2025-05-10)
+    ✔ rustup: 1.28.2 (e4f3ad6f8 2025-04-28)
+    ✔ Rust toolchain: stable-x86_64-unknown-linux-gnu (default)
+    - node: 20.18.1
+    - npm: 9.2.0
+
+[-] Packages
+    - tauri 🦀: 2.6.2
+    - tauri-build 🦀: 2.3.0
+    - wry 🦀: 0.52.1
+    - tao 🦀: 0.34.0
+    - @tauri-apps/api : 2.6.0
+    - @tauri-apps/cli : 2.6.2
+
+[-] Plugins
+    - tauri-plugin-fs 🦀: 2.4.0
+    - @tauri-apps/plugin-fs : 2.4.0
+    - tauri-plugin-shell 🦀: 2.3.0
+    - @tauri-apps/plugin-shell : 2.3.0
+    - tauri-plugin-opener 🦀: 2.4.0
+    - @tauri-apps/plugin-opener : 2.4.0
+    - tauri-plugin-log 🦀: 2.6.0
+    - @tauri-apps/plugin-log : 2.6.0
+    - tauri-plugin-cli 🦀: 2.4.0
+    - @tauri-apps/plugin-cli : 2.4.0
+    - tauri-plugin-dialog 🦀: 2.3.0
+    - @tauri-apps/plugin-dialog : 2.3.0
+
+[-] App
+    - build-type: build
+    - CSP: unset
+    - frontendDist: ../src

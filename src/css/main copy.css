@@ -1,6 +1,6 @@
 @import "../assets/fonts/stylesheet.css";
-@import "./config.css";
 @import "tailwindcss";
+@import "config.css"
 
 @plugin "@tailwindcss/typography";
 @config "../../tailwind.config.js";
@@ -14,7 +14,6 @@
 
 @theme inline {
   --color-primary: var(--color-pink-500);
-  --color-secondary: var(--color-zinc-1000);
   --text-base: 1.24rem;
 }
 
@@ -40,7 +39,7 @@
 
     &:hover {
       @media (hover: hover) {
-        outline: 1px solid var(--color-zinc-700);
+        filter: grayscale(var(--filter-grayscale));
         transform: scale(1.1);
       }
     }
@@ -54,28 +53,18 @@
     background-color: var(--color-primary);
     color: var(--color-white);
   }
-
-  .btn-secondary {
-    background-color: var(--color-secondary);
-    color: var(--color-white);
-  }
 }
 
 body {
+  outline: 5px red solid !important;
+  padding: 15px;
+  header {
+  }
+
   main {
     margin: 1rem;
     padding: 1rem;
     transition: var(--default-transition);
-
-    /* box-shadow: inset 1em 1em gold !important; */
-
-    box-shadow:
-      0 0 0  4px color-mix(in srgb, var(--color-primary) 1%, transparent),
-      0 0 0  8px color-mix(in srgb, var(--color-primary) 1%, transparent),
-      0 0 0 12px color-mix(in srgb, var(--color-primary) 1%, transparent),
-      0 0 0 16px color-mix(in srgb, var(--color-primary) 1%, transparent),
-      inset 0 0 0  4px color-mix(in srgb, var(--color-primary) 1%, transparent),
-      inset 0 0 0 16px color-mix(in srgb, var(--color-primary) 1%, transparent);
 
     #watermark {
       #plusIcon {
@@ -138,6 +127,7 @@ body {
       outline: .2rem dotted var(--color-pink-500);
     }
   }
+
 }
 
 .accent-text {
