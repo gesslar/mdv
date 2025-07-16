@@ -5,7 +5,7 @@ const {exists, readTextFile} = window.__TAURI__.fs
 
 function initializeMarked() {
   if(typeof marked === "undefined") {
-    console.error("marked.js not loaded. Cannot render markdown.")
+    error("marked.js not loaded. Cannot render markdown.")
     return false
   }
 

@@ -92,8 +92,8 @@ function getMainWidgets(){
     .filter(Boolean)
 
   if(widgets.length !== widgetIds.length) {
-    console.error("Missing required UI elements:",
-      widgetIds.filter(id => !document.getElementById(id))
+    error("Missing required UI elements:",
+      String(widgetIds.filter(id => !document.getElementById(id)))
     )
     resetContent()
     return null
@@ -110,7 +110,7 @@ function getVisibleMain() {
   const widgets = getMainWidgets()
 
   if(!widgets) {
-    console.error("Failed to get main widgets, resetting content.")
+    error("Failed to get main widgets, resetting content.")
     resetContent()
     return null
   }
@@ -122,21 +122,21 @@ function getVisibleMain() {
     })
 
   if(!shown) {
-    console.error("No visible main content found, resetting to watermark.")
+    error("No visible main content found, resetting to watermark.")
     resetContent()
     return null
   }
 
   switch(shown.length) {
     case 0:
-      console.error("No main widgets visible, resetting to watermark.")
+      error("No main widgets visible, resetting to watermark.")
       resetContent()
       return null
     case 1:
       // Only one widget visible, return it
       return shown[0]
     default:
-      console.error("Multiple main widgets visible, resetting to watermark.")
+      error("Multiple main widgets visible, resetting to watermark.")
       resetContent()
       return null
   }
@@ -209,7 +209,7 @@ function displayContent(text) {
   const watermark = document.getElementById("watermark")
 
   if(!(typeof text === "string" && text.trim().length > 0)) {
-    console.warn("No content to display.")
+    warn("No content to display.")
     return
   }
 

@@ -1,0 +1,7 @@
+#!/bin/bash -l
+
+cd $PROJ_GIT/mdv
+npm run tauri build
+npm run tauri bundle
+
+src-tauri/target/release/bundle/appimage/mdv_0.1.0_amd64.AppImage
