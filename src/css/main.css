@@ -58,13 +58,15 @@ main {
   padding: 1rem;
   transition: var(--default-transition);
 
-  #plus {
-    transition: var(--default-transition);
+  #watermark {
+    #plusIcon {
+      transition: var(--default-transition);
 
-    &.dragging {
-      transform:  rotate(360deg)
-                  scale(115%);
-      opacity: 50%;
+      &.dragging {
+        transform:  rotate(360deg)
+                    scale(115%);
+        opacity: 50%;
+      }
     }
   }
 
