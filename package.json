@@ -4,9 +4,31 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "tauri": "tauri"
+    "tailwind-build": "npx @tailwindcss/cli -i ./src/css/main.css -o ./src/css/mdv.css",
+    "tailwind-watch": "npx @tailwindcss/cli -i ./src/css/main.css -o ./src/css/mdv.css --watch",
+    "tauri": "tauri",
+    "tauri-watch": "tauri dev",
+    "tauri-build": "tauri build",
+    "tauri-bundle": "tauri bundle"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^2"
+    "@tailwindcss/cli": "^4.1.11",
+    "@tailwindcss/postcss": "^4.1.11",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tauri-apps/api": "^2.6.0",
+    "@tauri-apps/cli": "^2",
+    "@tauri-apps/plugin-dialog": "^2.3.0",
+    "@tauri-apps/plugin-fs": "^2.4.0",
+    "@tauri-apps/plugin-opener": "^2.4.0",
+    "@tauri-apps/plugin-store": "github:tauri-apps/tauri-plugin-store#v2",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.1.11"
+  },
+  "dependencies": {
+    "@tauri-apps/plugin-cli": "^2.4.0",
+    "@tauri-apps/plugin-log": "^2.6.0",
+    "@tauri-apps/plugin-shell": "^2.3.0"
   }
 }
