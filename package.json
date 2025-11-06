@@ -29,7 +29,7 @@
   "dependencies": {
     "@tauri-apps/plugin-cli": "^2.4.0",
     "@tauri-apps/plugin-log": "^2.6.0",
-    "@tauri-apps/plugin-shell": "^2.3.0"
+    "@tauri-apps/plugin-shell": "^2.3.3"
   },
   "license": "Unlicense"
 }
