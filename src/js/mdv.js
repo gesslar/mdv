@@ -22,8 +22,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   if(source) {
     const content = await window.mdvFileHandler.loadFileFromPath(source)
 
-    content
-      && window.mdvUI.displayContent(content)
-      || error("Could not read file from CLI source argument.")
+    if(content)
+      window.mdvUI.displayContent(content)
+    else
+      error(`Could not read file from source: ${source}`)
   }
 })
