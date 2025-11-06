@@ -1,0 +1,10 @@
+session_name: mdv
+start_directory: /projects/git/mdv
+windows:
+  - layout: main-horizontal
+    options:
+      main-pane-height: 20%
+    panes:
+      - npm run tailwind-watch
+      - sleep 1 && npm run tauri-watch
+    window_name: watch

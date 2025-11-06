@@ -1,22 +1,15 @@
 #config-panel {
-  position: fixed;
-  top: 50vh;
-  left: 50vw;
-  width: fit-content;
-  height: fit-content;
-  transition: all ease-out 5s;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: 1rem 2rem;
+  position: absolute;
+  transition: all ease-out 0.2s;
   visibility: hidden;
-  filter: blur(50px);
   z-index: 9999;
-  background-color: transparent;
-  border-radius: 100rem;
-  padding: 1.2rem;
 
   &.open {
-    border-radius: 1.1rem;
     visibility: visible;
-    filter: blur(0px);
-    background-color: var(--color-zinc-900);
-    box-shadow: -2mm -2mm 100mm rgb(160 0 210);
   }
 }

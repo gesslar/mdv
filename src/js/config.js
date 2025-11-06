@@ -25,17 +25,12 @@ async function initializeConfig() {
     return
   }
 
-  info("Initializing Config functionality")
-
-  info("Adding 'click' event listener to config button")
   configButton.addEventListener("click", async () => {
-    info("Config button clicked")
     await showConfig()
   })
 
   configPanel.addEventListener("click", (event) => {
-    info(`Config panel clicked ${event.target}`)
-    hideConfig()
+    // hideConfig()
   })
 
   // info("Looking for close button in config panel")
@@ -91,6 +86,8 @@ async function showConfig() {
     mdvConfig.configPanel.addEventListener("transitionend", function handler() {
       mdvConfig.configPanel.removeEventListener("transitionend", handler)
     }, {once: true})
+    restoreSettings();
+    setupHooks();
   } catch(e) {
     return error(`Failure loading configuration: ${e}`)
   }
@@ -103,6 +100,85 @@ function hideConfig() {
   mdvConfig.configPanel.addEventListener("transitionend", function handler() {
     mdvConfig.configPanel.innerHTML = ""
     mdvConfig.configPanel.removeEventListener("transitionend", handler)
+  })
+}
+
+// Theme handling
+function setTheme(theme) {
+  const html = document.documentElement
+  const hljsTheme = document.getElementById("hljs-theme")
+
+  html.classList.remove("light", "dark")
+
+  if(theme === "light" || theme === "dark") {
+    html.classList.add(theme)
+    localStorage.setItem("mdv-theme", theme)
+    hljsTheme.href = `css/github${theme === "dark" ? "-dark" : ""}.css`
+  } else {
+    localStorage.removeItem("mdv-theme")
+
+    // Detect system preference
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+    html.classList.add(prefersDark ? "dark" : "light")
+    hljsTheme.href = prefersDark ? "css/github-dark.css" : "css/github.css"
+  }
+}
+
+function initializeThemeHandling() {
+  setTheme(localStorage.getItem("mdv-theme") || "auto")
+  hideThemeMenu()
+  disableMenu()
+}
+
+function restoreSettings() {
+  restoreThemeSettings();
+}
+
+const toggleStyles = {
+  active: ["bg-pink-500/50", "text-white", "ring-pink-600/50", "hover:bg-pink-500/70", "focus:z-10"],
+  inactive: ["bg-zinc-800", "text-zinc-200", "ring-zinc-900", "hover:bg-zinc-600", "focus:z-10"]
+}
+
+function toggleButton(button, active) {
+  if(active) {
+    button.classList.remove(...toggleStyles.inactive)
+    button.classList.add(...toggleStyles.active)
+  } else {
+    button.classList.remove(...toggleStyles.active)
+    button.classList.add(...toggleStyles.inactive)
+  }
+}
+
+function resetToggles(buttons) {
+  buttons.forEach(button => toggleButton(button, false))
+}
+
+const themes = ["auto", "light", "dark"]
+function restoreThemeSettings() {
+  const theme = localStorage.getItem("mdv-theme") || "auto"
+
+  const buttons = themes.map(theme => document.getElementById(`btn-${theme}`))
+  if(!buttons || buttons.length === 0)
+    return error("No theme buttons found for restoration.")
+
+  // Reset all buttons to inactive state
+  buttons.forEach(button => toggleButton(button, false))
+
+  const activeButton = buttons.find(button => button.id === `btn-${theme}`) || buttons[0]
+  toggleButton(activeButton, true)
+}
+
+function setupHooks() {
+  const buttons = themes.map(theme => document.getElementById(`btn-${theme}`))
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      resetToggles(buttons)
+
+      const themeName = button.id.replace("btn-", "")
+      setTheme(themeName)
+      toggleButton(button, true)
+    })
   })
 }
 
