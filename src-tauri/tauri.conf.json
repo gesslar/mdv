@@ -1,0 +1,65 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "build": {
+    "frontendDist": "../src"
+  },
+  "productName": "mdv",
+  "version": "0.1.0",
+  "identifier": "dev.gesslar.mdv",
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "mdv",
+        "width": 1000,
+        "height": 1000,
+        "dragDropEnabled": false,
+        "allowLinkPreview": false,
+        "browserExtensionsEnabled": false,
+        "center": true,
+        "label": "main"
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "targets": "all",
+    "category": "Utilities",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "fileAssociations": [
+      {
+        "description": "Markdown document",
+        "ext": [
+          "md",
+          "markdown",
+          "mkd"
+        ],
+        "mimeType": "text/markdown",
+        "rank": "Default",
+        "role": "Viewer"
+      }
+    ],
+    "license": "Unlicense",
+    "licenseFile": "UNLICENSE"
+  },
+  "plugins": {
+    "cli": {
+      "description": "Accept file associations and cli arguments.",
+      "args": [
+        {
+          "name": "source",
+          "index": 1,
+          "takesValue": true
+        }
+      ]
+    }
+  }
+}

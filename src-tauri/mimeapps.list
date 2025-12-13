@@ -1,0 +1,7 @@
+[Default Applications]
+text/markdown=mdv.desktop
+text/x-markdown=mdv.desktop
+
+[Added Associations]
+text/markdown=mdv.desktop
+text/x-markdown=mdv.desktop

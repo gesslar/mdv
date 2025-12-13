@@ -1,0 +1,577 @@
+<body class="app-container">
+
+  <header id="app-header">
+    <nav id="header-nav">
+      <div id="app-logo">
+        MDV <span class="logo-accent">bitches</span>
+      </div>
+
+      <ul id="header-actions">
+        <li>
+          <button id="action-config-button" class="cursor-pointer btn btn-secondary">
+            <svg id="config-icon" class="icon-sm" viewBox="0 0 512 512" fill="currentColor">
+              <path
+                d="M497 60h-77.509C412.522 25.808 382.22 0 346 0s-66.522 25.808-73.491 60H15C6.716 60 0 66.716 0 75s6.716 15 15 15h257.509c6.968 34.192 37.271 60 73.491 60s66.522-25.808 73.491-60H497c8.284 0 15-6.716 15-15s-6.716-15-15-15zm-151 60c-24.809 0-44.993-20.18-45-44.987l.001-.013-.001-.013C301.007 50.18 321.191 30 346 30c24.813 0 45 20.187 45 45s-20.187 45-45 45zM497 241H239.491c-6.968-34.192-37.271-60-73.491-60s-66.522 25.808-73.491 60H15c-8.284 0-15 6.716-15 15s6.716 15 15 15h77.509c6.968 34.192 37.271 60 73.491 60s66.522-25.808 73.491-60H497c8.284 0 15-6.716 15-15s-6.716-15-15-15zm-331 60c-24.809 0-44.993-20.18-45-44.987l.001-.013-.001-.013C121.007 231.18 141.191 211 166 211c24.813 0 45 20.187 45 45s-20.187 45-45 45zM497 422h-77.509c-6.968-34.192-37.271-60-73.491-60s-66.522 25.808-73.491 60H15c-8.284 0-15 6.716-15 15s6.716 15 15 15h257.509c6.968 34.192 37.271 60 73.491 60s66.522-25.808 73.491-60H497c8.284 0 15-6.716 15-15s-6.716-15-15-15zm-151 60c-24.809 0-44.993-20.18-45-44.987l.001-.013-.001-.013C301.007 412.18 321.191 392 346 392c24.813 0 45 20.187 45 45s-20.187 45-45 45z"
+                fill="#ffffff" opacity="1" data-original="#000000">
+              </path>
+            </svg>
+          </button>
+        </li>
+        <li>
+          <button id="action-open-button" class="cursor-pointer btn btn-primary">
+            Open
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <div id="nav-buffer"></div>
+  </header>
+
+  <main id="mainView">
+    <div id="MDV-TOC-c7df27ce-5775-405b-afdf-a10d4d83f8a7">
+      <ul id="toc-mdv">
+
+        <li class="toc-item toc-depth-1">
+          <a class="toc-link" href="#" title="undefined">Fedora Machine Sync Guide: Liam &amp; James</a>
+        </li>
+
+        <li class="toc-item toc-depth-2">
+          <a class="toc-link" href="#" title="undefined">Table of Contents</a>
+        </li>
+
+        <li class="toc-item toc-depth-2">
+          <a class="toc-link" href="#" title="undefined">1. SSH Setup &amp; Passwordless Login</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">On Liam (current machine)</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">On James (repeat the process in reverse)</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">Add hostname aliases for easier access</a>
+        </li>
+
+        <li class="toc-item toc-depth-2">
+          <a class="toc-link" href="#" title="undefined">2. Remote Desktop (RDP) Setup</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">On James (the remote machine)</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">On Liam (to connect to James)</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">Repeat on James to RDP back to Liam</a>
+        </li>
+
+        <li class="toc-item toc-depth-2">
+          <a class="toc-link" href="#" title="undefined">3. Network File Sharing (NFS)</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">On James (NFS Server for sharing James folders to Liam)</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">On Liam (NFS Client to mount James)</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">Repeat for Liam sharing to James</a>
+        </li>
+
+        <li class="toc-item toc-depth-2">
+          <a class="toc-link" href="#" title="undefined">4. Alternative: SSHFS for File Mounting</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">On Liam (to mount James)</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">Make SSHFS mount automatic on login</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">On James (to mount Liam)</a>
+        </li>
+
+        <li class="toc-item toc-depth-2">
+          <a class="toc-link" href="#" title="undefined">5. Syncing Files with Rsync</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">Basic rsync commands</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">Create a sync script</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">Bidirectional sync script</a>
+        </li>
+
+        <li class="toc-item toc-depth-2">
+          <a class="toc-link" href="#" title="undefined">6. Optional: Syncthing for Automatic Sync</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">On both Liam and James</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">Configure Syncthing</a>
+        </li>
+
+        <li class="toc-item toc-depth-2">
+          <a class="toc-link" href="#" title="undefined">Quick Reference Commands</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">SSH Connections</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">RDP Connections</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">NFS Mounts</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">SSHFS</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">File Sync</a>
+        </li>
+
+        <li class="toc-item toc-depth-2">
+          <a class="toc-link" href="#" title="undefined">Troubleshooting</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">Can't connect via RDP</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">NFS mount fails</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">SSHFS mount fails</a>
+        </li>
+
+        <li class="toc-item toc-depth-3">
+          <a class="toc-link" href="#" title="undefined">Firewall blocking something</a>
+        </li>
+
+        <li class="toc-item toc-depth-2">
+          <a class="toc-link" href="#" title="undefined">Recommended Setup</a>
+        </li>
+
+        <li class="toc-item toc-depth-2">
+          <a class="toc-link" href="#" title="undefined">What You'll Be Able To Do</a>
+        </li>
+      </ul>
+    </div>
+    <section id="watermark" class="watermark" style="display: none;">
+      <svg id="plusIcon" class="watermark-icon" viewBox="0 0 24 24" fill="none" stroke="var(--color-pink-500)"
+        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14M5 12h14"></path>
+      </svg>
+      <p class="watermark-text">Drop a Markdown file here or click Open</p>
+    </section>
+    <section id="stage" style="display: block;">
+      <div>
+        <h1 id="" headingdepth="1">Fedora Machine Sync Guide: Liam &amp; James</h1>
+        <p>This guide will help you configure your two Fedora 43 machines to work seamlessly together.</p>
+        <p><strong>Machine Details:</strong></p>
+        <ul>
+          <li><strong>Liam</strong> (Main): 192.168.2.74 (current machine)</li>
+          <li><strong>James</strong>: 192.168.2.69</li>
+        </ul>
+        <h2 id="" headingdepth="2">Table of Contents</h2>
+        <ol>
+          <li><a href="#1-ssh-setup--passwordless-login" title="">SSH Setup &amp; Passwordless Login</a></li>
+          <li><a href="#2-remote-desktop-rdp-setup" title="">Remote Desktop (RDP) Setup</a></li>
+          <li><a href="#3-network-file-sharing-nfs" title="">Network File Sharing (NFS)</a></li>
+          <li><a href="#4-alternative-sshfs-for-file-mounting" title="">Alternative: SSHFS for File Mounting</a></li>
+          <li><a href="#5-syncing-files-with-rsync" title="">Syncing Files with Rsync</a></li>
+          <li><a href="#6-optional-syncthing-for-automatic-sync" title="">Optional: Syncthing for Automatic Sync</a>
+          </li>
+        </ol>
+        <hr>
+        <h2 id="" headingdepth="2">1. SSH Setup &amp; Passwordless Login</h2>
+        <p>Since you can already SSH to James, let's make it passwordless for convenience.</p>
+        <h3 id="" headingdepth="3">On Liam (current machine)</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Generate SSH key if you don't have one</span>
+ssh-keygen -t ed25519 -C <span class="hljs-string">"liam-to-james"</span>
+
+<span class="hljs-comment"># Press Enter for all prompts to accept defaults</span>
+
+<span class="hljs-comment"># Copy your public key to James</span>
+ssh-copy-id username@192.168.2.69
+
+<span class="hljs-comment"># Test passwordless login</span>
+ssh username@192.168.2.69
+</code></pre>
+        <h3 id="" headingdepth="3">On James (repeat the process in reverse)</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Generate SSH key</span>
+ssh-keygen -t ed25519 -C <span class="hljs-string">"james-to-liam"</span>
+
+<span class="hljs-comment"># Copy public key to Liam</span>
+ssh-copy-id username@192.168.2.74
+</code></pre>
+        <h3 id="" headingdepth="3">Add hostname aliases for easier access</h3>
+        <p>Edit <code>/etc/hosts</code> on both machines:</p>
+        <pre><code class="hljs language-bash"><span class="hljs-built_in">sudo</span> nano /etc/hosts
+</code></pre>
+        <p>Add these lines:</p>
+        <pre><code class="hljs language-text">192.168.2.74    liam
+192.168.2.69    james
+</code></pre>
+        <p>Now you can use <code>ssh james</code> instead of <code>ssh 192.168.2.69</code></p>
+        <hr>
+        <h2 id="" headingdepth="2">2. Remote Desktop (RDP) Setup</h2>
+        <p>We'll set up RDP using xrdp, which works well with Fedora.</p>
+        <h3 id="" headingdepth="3">On James (the remote machine)</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Install xrdp</span>
+<span class="hljs-built_in">sudo</span> dnf install xrdp xorgxrdp
+
+<span class="hljs-comment"># Start and enable xrdp service</span>
+<span class="hljs-built_in">sudo</span> systemctl start xrdp
+<span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> xrdp
+
+<span class="hljs-comment"># Open firewall</span>
+<span class="hljs-built_in">sudo</span> firewall-cmd --permanent --add-port=3389/tcp
+<span class="hljs-built_in">sudo</span> firewall-cmd --reload
+</code></pre>
+        <h3 id="" headingdepth="3">On Liam (to connect to James)</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Install RDP client</span>
+<span class="hljs-built_in">sudo</span> dnf install remmina remmina-plugins-rdp
+
+<span class="hljs-comment"># Launch Remmina</span>
+remmina
+</code></pre>
+        <p><strong>In Remmina:</strong></p>
+        <ol>
+          <li>Click the "+" button to add a new connection</li>
+          <li>Protocol: RDP</li>
+          <li>Server: <code>james</code> (or <code>192.168.2.69</code>)</li>
+          <li>Username: your username on James</li>
+          <li>Password: your password on James</li>
+          <li>Color depth: True color (24 bpp)</li>
+          <li>Save and connect!</li>
+        </ol>
+        <h3 id="" headingdepth="3">Repeat on James to RDP back to Liam</h3>
+        <p>Install xrdp on Liam using the same commands above, then configure Remmina on James.</p>
+        <hr>
+        <h2 id="" headingdepth="2">3. Network File Sharing (NFS)</h2>
+        <p>NFS is fast and native to Linux. We'll set up bidirectional sharing.</p>
+        <h3 id="" headingdepth="3">On James (NFS Server for sharing James folders to Liam)</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Install NFS server</span>
+<span class="hljs-built_in">sudo</span> dnf install nfs-utils
+
+<span class="hljs-comment"># Create a directory to share (or use existing - can share your whole home dir)</span>
+<span class="hljs-built_in">mkdir</span> -p /home/username/shared
+<span class="hljs-comment"># Or to share everything: we'll export /home/username directly</span>
+</code></pre>
+        <p>Edit NFS exports:</p>
+        <pre><code class="hljs language-bash"><span class="hljs-built_in">sudo</span> nano /etc/exports
+</code></pre>
+        <p>Add this line (replace <code>username</code> with your actual username):</p>
+        <pre><code class="hljs language-text">/home/username 192.168.2.74(rw,sync,no_subtree_check,no_root_squash)
+</code></pre>
+        <p>Or to share with entire local network:</p>
+        <pre><code class="hljs language-text">/home/username 192.168.2.0/24(rw,sync,no_subtree_check,no_root_squash)
+</code></pre>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Start and enable NFS</span>
+<span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> --now nfs-server
+
+<span class="hljs-comment"># Export the shares</span>
+<span class="hljs-built_in">sudo</span> exportfs -arv
+
+<span class="hljs-comment"># Open firewall</span>
+<span class="hljs-built_in">sudo</span> firewall-cmd --permanent --add-service=nfs
+<span class="hljs-built_in">sudo</span> firewall-cmd --permanent --add-service=rpc-bind
+<span class="hljs-built_in">sudo</span> firewall-cmd --permanent --add-service=mountd
+<span class="hljs-built_in">sudo</span> firewall-cmd --reload
+</code></pre>
+        <h3 id="" headingdepth="3">On Liam (NFS Client to mount James)</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Install NFS client utilities</span>
+<span class="hljs-built_in">sudo</span> dnf install nfs-utils
+
+<span class="hljs-comment"># Create mount point</span>
+<span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mkdir</span> -p /mnt/james
+
+<span class="hljs-comment"># Mount James's home directory</span>
+<span class="hljs-built_in">sudo</span> mount -t nfs james:/home/username /mnt/james
+
+<span class="hljs-comment"># Make it permanent - edit /etc/fstab</span>
+<span class="hljs-built_in">sudo</span> nano /etc/fstab
+</code></pre>
+        <p>Add this line:</p>
+        <pre><code class="hljs language-text">james:/home/username    /mnt/james    nfs    defaults    0 0
+</code></pre>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Test the fstab entry</span>
+<span class="hljs-built_in">sudo</span> mount -a
+
+<span class="hljs-comment"># Verify</span>
+<span class="hljs-built_in">ls</span> /mnt/james
+</code></pre>
+        <h3 id="" headingdepth="3">Repeat for Liam sharing to James</h3>
+        <p>Follow the same steps but reverse - edit <code>/etc/exports</code> on Liam and create <code>/mnt/liam</code>
+          on James.</p>
+        <hr>
+        <h2 id="" headingdepth="2">4. Alternative: SSHFS for File Mounting</h2>
+        <p>SSHFS is much easier to set up than NFS and requires no server configuration.</p>
+        <h3 id="" headingdepth="3">On Liam (to mount James)</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Install SSHFS</span>
+<span class="hljs-built_in">sudo</span> dnf install fuse-sshfs
+
+<span class="hljs-comment"># Create mount point</span>
+<span class="hljs-built_in">mkdir</span> -p ~/james
+
+<span class="hljs-comment"># Mount James's home directory</span>
+sshfs username@james:/home/username ~/james
+
+<span class="hljs-comment"># To unmount</span>
+fusermount -u ~/james
+</code></pre>
+        <h3 id="" headingdepth="3">Make SSHFS mount automatic on login</h3>
+        <p>Add to <code>~/.bashrc</code>:</p>
+        <pre><code class="hljs language-bash">nano ~/.bashrc
+</code></pre>
+        <p>Add at the end:</p>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Auto-mount James</span>
+<span class="hljs-keyword">if</span> ! mountpoint -q ~/james; <span class="hljs-keyword">then</span>
+    sshfs username@james:/home/username ~/james 2&gt;/dev/null
+<span class="hljs-keyword">fi</span>
+</code></pre>
+        <h3 id="" headingdepth="3">On James (to mount Liam)</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-built_in">sudo</span> dnf install fuse-sshfs
+<span class="hljs-built_in">mkdir</span> -p ~/liam
+sshfs username@liam:/home/username ~/liam
+</code></pre>
+        <p>Add to James's <code>~/.bashrc</code>:</p>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Auto-mount Liam</span>
+<span class="hljs-keyword">if</span> ! mountpoint -q ~/liam; <span class="hljs-keyword">then</span>
+    sshfs username@liam:/home/username ~/liam 2&gt;/dev/null
+<span class="hljs-keyword">fi</span>
+</code></pre>
+        <p><strong>SSHFS is recommended</strong> - it's simpler and just works!</p>
+        <hr>
+        <h2 id="" headingdepth="2">5. Syncing Files with Rsync</h2>
+        <p>For one-time or scheduled syncs between machines.</p>
+        <h3 id="" headingdepth="3">Basic rsync commands</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Sync a folder from Liam to James</span>
+rsync -avz --progress ~/Documents/ james:~/Documents/
+
+<span class="hljs-comment"># Sync from James to Liam</span>
+rsync -avz --progress james:~/Documents/ ~/Documents/
+
+<span class="hljs-comment"># Mirror (delete files on destination that don't exist on source)</span>
+rsync -avz --progress --delete ~/Documents/ james:~/Documents/
+
+<span class="hljs-comment"># Dry run (see what would be synced)</span>
+rsync -avzn ~/Documents/ james:~/Documents/
+</code></pre>
+        <p><strong>Flags explained:</strong></p>
+        <ul>
+          <li><code>-a</code>: archive mode (preserves everything)</li>
+          <li><code>-v</code>: verbose</li>
+          <li><code>-z</code>: compress during transfer</li>
+          <li><code>--progress</code>: show progress</li>
+          <li><code>--delete</code>: mirror exactly (removes extra files)</li>
+          <li><code>-n</code>: dry run (test first!)</li>
+        </ul>
+        <h3 id="" headingdepth="3">Create a sync script</h3>
+        <pre><code class="hljs language-bash">nano ~/sync-to-james.sh
+</code></pre>
+        <p>Add:</p>
+        <pre><code class="hljs language-bash"><span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Syncing to James..."</span>
+rsync -avz --progress --delete \
+    ~/Documents/ james:~/Documents/ \
+    ~/Pictures/ james:~/Pictures/ \
+    ~/Music/ james:~/Music/
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Sync complete!"</span>
+</code></pre>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Make it executable</span>
+<span class="hljs-built_in">chmod</span> +x ~/sync-to-james.sh
+
+<span class="hljs-comment"># Run it</span>
+./sync-to-james.sh
+</code></pre>
+        <h3 id="" headingdepth="3">Bidirectional sync script</h3>
+        <pre><code class="hljs language-bash">nano ~/sync-both-ways.sh
+</code></pre>
+        <p>Add:</p>
+        <pre><code class="hljs language-bash"><span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Syncing Liam -&gt; James..."</span>
+rsync -avz --progress ~/Documents/ james:~/Documents/
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Syncing James -&gt; Liam..."</span>
+rsync -avz --progress james:~/Pictures/ ~/Pictures/
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Done!"</span>
+</code></pre>
+        <hr>
+        <h2 id="" headingdepth="2">6. Optional: Syncthing for Automatic Sync</h2>
+        <p>Syncthing provides continuous, automatic, bidirectional file synchronization. Set it and forget it.</p>
+        <h3 id="" headingdepth="3">On both Liam and James</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Install Syncthing</span>
+<span class="hljs-built_in">sudo</span> dnf install syncthing
+
+<span class="hljs-comment"># Enable and start for your user</span>
+systemctl --user <span class="hljs-built_in">enable</span> syncthing
+systemctl --user start syncthing
+
+<span class="hljs-comment"># Open firewall</span>
+<span class="hljs-built_in">sudo</span> firewall-cmd --permanent --add-port=22000/tcp
+<span class="hljs-built_in">sudo</span> firewall-cmd --permanent --add-port=21027/udp
+<span class="hljs-built_in">sudo</span> firewall-cmd --reload
+</code></pre>
+        <h3 id="" headingdepth="3">Configure Syncthing</h3>
+        <ol>
+          <li>On Liam, open browser: <code>http://localhost:8384</code></li>
+          <li>On James, open browser: <code>http://localhost:8384</code></li>
+          <li>On each machine, go to <strong>Actions → Show ID</strong></li>
+          <li>On Liam, click <strong>"Add Remote Device"</strong> and paste James's ID</li>
+          <li>On James, you'll get a popup to accept Liam's connection - click <strong>Add</strong></li>
+          <li>On Liam, click <strong>"Add Folder"</strong>, select what to sync (e.g., <code>~/Documents</code>)</li>
+          <li>In the folder settings, go to <strong>Sharing</strong> tab and check the box for James</li>
+          <li>Repeat on James for any folders you want to sync back</li>
+        </ol>
+        <p>Syncthing will now keep selected folders in sync automatically in real-time!</p>
+        <hr>
+        <h2 id="" headingdepth="2">Quick Reference Commands</h2>
+        <h3 id="" headingdepth="3">SSH Connections</h3>
+        <pre><code class="hljs language-bash">ssh james          <span class="hljs-comment"># Connect to James</span>
+ssh liam           <span class="hljs-comment"># Connect to Liam (from James)</span>
+</code></pre>
+        <h3 id="" headingdepth="3">RDP Connections</h3>
+        <pre><code class="hljs language-bash">remmina            <span class="hljs-comment"># Launch RDP client</span>
+</code></pre>
+        <h3 id="" headingdepth="3">NFS Mounts</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-built_in">ls</span> /mnt/james      <span class="hljs-comment"># View James's files (on Liam)</span>
+<span class="hljs-built_in">ls</span> /mnt/liam       <span class="hljs-comment"># View Liam's files (on James)</span>
+</code></pre>
+        <h3 id="" headingdepth="3">SSHFS</h3>
+        <pre><code class="hljs language-bash">sshfs james:/home/username ~/james     <span class="hljs-comment"># Mount</span>
+fusermount -u ~/james                  <span class="hljs-comment"># Unmount</span>
+<span class="hljs-built_in">ls</span> ~/james                             <span class="hljs-comment"># Browse James's files</span>
+</code></pre>
+        <h3 id="" headingdepth="3">File Sync</h3>
+        <pre><code class="hljs language-bash">rsync -avz ~/folder/ james:~/folder/        <span class="hljs-comment"># Sync to James</span>
+./sync-to-james.sh                          <span class="hljs-comment"># Run sync script</span>
+</code></pre>
+        <hr>
+        <h2 id="" headingdepth="2">Troubleshooting</h2>
+        <h3 id="" headingdepth="3">Can't connect via RDP</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># On James, check xrdp is running</span>
+<span class="hljs-built_in">sudo</span> systemctl status xrdp
+
+<span class="hljs-comment"># Restart it</span>
+<span class="hljs-built_in">sudo</span> systemctl restart xrdp
+
+<span class="hljs-comment"># Check if port 3389 is listening</span>
+<span class="hljs-built_in">sudo</span> ss -tlnp | grep 3389
+</code></pre>
+        <h3 id="" headingdepth="3">NFS mount fails</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># On James, check NFS is running</span>
+<span class="hljs-built_in">sudo</span> systemctl status nfs-server
+
+<span class="hljs-comment"># Check what's being exported</span>
+<span class="hljs-built_in">sudo</span> exportfs -v
+
+<span class="hljs-comment"># On Liam, see what James is sharing</span>
+showmount -e james
+
+<span class="hljs-comment"># Remount</span>
+<span class="hljs-built_in">sudo</span> umount /mnt/james
+<span class="hljs-built_in">sudo</span> mount -a
+</code></pre>
+        <h3 id="" headingdepth="3">SSHFS mount fails</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Check SSH works first</span>
+ssh james
+
+<span class="hljs-comment"># Unmount and remount</span>
+fusermount -u ~/james
+sshfs username@james:/home/username ~/james
+
+<span class="hljs-comment"># Enable debug mode to see what's wrong</span>
+sshfs -d username@james:/home/username ~/james
+</code></pre>
+        <h3 id="" headingdepth="3">Firewall blocking something</h3>
+        <pre><code class="hljs language-bash"><span class="hljs-comment"># Check what's allowed</span>
+<span class="hljs-built_in">sudo</span> firewall-cmd --list-all
+
+<span class="hljs-comment"># Temporarily disable to test</span>
+<span class="hljs-built_in">sudo</span> systemctl stop firewalld
+
+<span class="hljs-comment"># If that fixes it, add the right rules</span>
+<span class="hljs-built_in">sudo</span> firewall-cmd --permanent --add-service=SERVICE_NAME
+<span class="hljs-built_in">sudo</span> firewall-cmd --reload
+<span class="hljs-built_in">sudo</span> systemctl start firewalld
+</code></pre>
+        <hr>
+        <h2 id="" headingdepth="2">Recommended Setup</h2>
+        <p>Here's the simplest, most practical setup:</p>
+        <ol>
+          <li><strong>SSH passwordless login</strong> - Do this first (Section 1)</li>
+          <li><strong>SSHFS for file access</strong> - Much easier than NFS (Section 4)<ul>
+              <li>Mount James at <code>~/james</code> on Liam</li>
+              <li>Mount Liam at <code>~/liam</code> on James</li>
+              <li>Now you can access both machines' files from either one!</li>
+            </ul>
+          </li>
+          <li><strong>RDP for graphical access</strong> - When you need James's desktop (Section 2)</li>
+          <li><strong>Syncthing</strong> - If you want specific folders to auto-sync (Section 6)</li>
+        </ol>
+        <p>Skip NFS and manual rsync unless you have specific needs for them.</p>
+        <hr>
+        <h2 id="" headingdepth="2">What You'll Be Able To Do</h2>
+        <p>After setup:</p>
+        <p>✅ SSH to either machine without password: <code>ssh james</code>
+          ✅ Browse James's files on Liam: <code>cd ~/james</code>
+          ✅ Browse Liam's files on James: <code>cd ~/liam</code>
+          ✅ Open James's desktop from Liam (or vice versa) with Remmina
+          ✅ Auto-sync folders between machines with Syncthing
+          ✅ Copy files: <code>cp ~/file ~/james/file</code> (copies from Liam to James!)</p>
+        <p>Basically, they'll work like one big machine!</p>
+      </div>
+    </section>
+  </main>
+
+  <footer id="app-footer">
+    <div id="footer-buffer"></div>
+    <div id="footer-content">
+      <div>© ∞ nobody 🐩🐩🐩</div>
+      <div style="display:none">
+        <button command="--toggle" commandfor="my-disclosure" type="button">
+          What's the best thing about Switzerland?
+        </button>
+
+        <el-disclosure hidden="" id="my-disclosure">
+          I don't know, but the flag is a big plus.
+        </el-disclosure>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+</body>
