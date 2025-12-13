@@ -1,0 +1,29 @@
+{
+  "name": "mdv",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "tauri": "tauri",
+    "bundle": "NO_STRIP=true tauri bundle",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "update": "npx npm-check-updates -u && npm install",
+    "pr": "gt submit --publish --restack --ai",
+    "checkout": "$ELEVATOR && elevatePrivileges && NO_STRIP=true tauri build --bundles rpm && ./fix-desktop-file.sh && sudo dnf install -y src-tauri/target/release/bundle/rpm/mdv-0.1.0-1.x86_64.rpm && mdv && sudo dnf remove mdv -y"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@gesslar/uglier": "^0.0.5",
+    "@highlightjs/cdn-assets": "^11.11.1",
+    "@stylistic/eslint-plugin": "^5.6.1",
+    "@tauri-apps/cli": "^2",
+    "dompurify": "^3.3.1",
+    "eslint-plugin-jsdoc": "^61.5.0",
+    "globals": "^16.5.0",
+    "marked": "^17.0.1"
+  },
+  "dependencies": {
+    "marked-highlight": "^2.2.3"
+  }
+}
