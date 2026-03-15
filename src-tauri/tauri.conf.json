@@ -4,7 +4,7 @@
     "frontendDist": "../src"
   },
   "productName": "mdv",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "identifier": "dev.gesslar.mdv",
   "app": {
     "withGlobalTauri": true,

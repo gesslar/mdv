@@ -1,6 +1,6 @@
 [package]
 name = "mdv"
-version = "0.1.5"
+version = "0.1.6"
 description = "mdv like a mofo"
 authors = ["gesslar"]
 edition = "2021"
