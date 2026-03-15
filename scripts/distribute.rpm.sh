@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-$ELEVATOR && elevate
+set -e
 
 VERSION=$(jq -r ".version" package.json)
 NAME=$(jq -r ".name" package.json)

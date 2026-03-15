@@ -7,7 +7,7 @@
     "tauri": "tauri",
     "build": "tauri build",
     "bundle": "NO_STRIP=true tauri bundle",
-    "dist:rpm": "/projects/repos/rpm",
+    "dist:rpm": "bash scripts/post-bundle.sh",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
     "update": "npx npm-check-updates -u && npm install",
