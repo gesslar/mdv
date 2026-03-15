@@ -2,11 +2,9 @@
 # Post-process Tauri-built RPM to:
 # 1. Set the Vendor field
 # 2. Add InitialPreference to the desktop file
-# 3. Install mimeapps.list for default handler registration
 
 set -e
 
-MIMEAPPS_SOURCE="$(pwd)/src-tauri/mimeapps.list"
 VENDOR="Gess, Daddy!"
 
 VERSION=$(jq -r ".version" package.json)
@@ -22,29 +20,21 @@ echo "=== Fixing RPM: $RPM_FILE ==="
 
 # Create a temporary script for --change-files
 CHANGE_FILES_SCRIPT=$(mktemp)
-cat > "$CHANGE_FILES_SCRIPT" <<SCRIPT
+cat > "$CHANGE_FILES_SCRIPT" <<'SCRIPT'
 #!/bin/bash
 set -e
 
 # Add InitialPreference to desktop file
-DESKTOP=\$(find \$RPM_BUILD_ROOT -name 'mdv.desktop' -type f | head -1)
-if [[ -n "\$DESKTOP" ]] && grep -q '^MimeType=' "\$DESKTOP" && ! grep -q '^InitialPreference=' "\$DESKTOP"; then
-  sed -i '/^MimeType=/a InitialPreference=80' "\$DESKTOP"
+DESKTOP=$(find $RPM_BUILD_ROOT -name 'mdv.desktop' -type f | head -1)
+if [[ -n "$DESKTOP" ]] && grep -q '^MimeType=' "$DESKTOP" && ! grep -q '^InitialPreference=' "$DESKTOP"; then
+  sed -i '/^MimeType=/a InitialPreference=80' "$DESKTOP"
   echo "Added InitialPreference=80"
-fi
-
-# Install mimeapps.list
-APPS_DIR=\$(find \$RPM_BUILD_ROOT -type d -path '*/usr/share/applications' | head -1)
-if [[ -n "\$APPS_DIR" ]]; then
-  cp "$MIMEAPPS_SOURCE" "\$APPS_DIR/mimeapps.list"
-  echo "Installed mimeapps.list"
 fi
 SCRIPT
 chmod +x "$CHANGE_FILES_SCRIPT"
 
 rpmrebuild --batch --notest-install --package \
   --change-spec-preamble='sed -e "/^Vendor:/d; /^Group:/a Vendor: '"$VENDOR"'"' \
-  --change-spec-files='echo "%attr(0644, root, root) /usr/share/applications/mimeapps.list"' \
   --change-files="$CHANGE_FILES_SCRIPT" \
   "$RPM_FILE"
 
