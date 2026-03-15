@@ -132,12 +132,14 @@ export default class FileWatcher extends Base {
     const markedElement = document.getElementById(this.#tempScrollMarkerId)
     if(!markedElement) {
       this.#savedScrollOffset = null
+
       return
     }
 
     const mainView = document.querySelector("#mainView")
     if(!mainView) {
       this.#savedScrollOffset = null
+
       return
     }
 

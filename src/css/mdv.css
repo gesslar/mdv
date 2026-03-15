@@ -205,26 +205,25 @@ body {
 
     /* Markdown Preview Styling */
     #stage {
-      margin: 0 1rem;
       grid-column: 1;
       max-width: none;
       height: 100%;
       overflow: auto;
-      padding: calc(var(--spacing) * 2);
+      padding: 1rem;
       scroll-behavior: smooth;
-      scrollbar-color: red pink;
       scrollbar-gutter: stable;
-      scrollbar-track-color: aqua;
 
       @keyframes stageFlash {
         0% {
           box-shadow: 0 0 0 0.15rem color-mix(in oklab, var(--color-pink-500) 25%, transparent);
           background-color: color-mix(in oklab, var(--color-pink-500) 8%, transparent);
         }
+
         60% {
           box-shadow: 0 0 0 0.35rem color-mix(in oklab, var(--color-pink-500) 15%, transparent);
           background-color: color-mix(in oklab, var(--color-pink-400) 10%, transparent);
         }
+
         100% {
           box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-pink-500) 5%, transparent);
           background-color: transparent;
@@ -319,11 +318,13 @@ body {
           outline: 5px solid red !important;
           box-shadow: none !important;
         }
+
         50% {
           background-color: yellow !important;
           outline: 5px solid yellow !important;
           box-shadow: 0 0 30px red !important;
         }
+
         100% {
           background-color: red !important;
           outline: 5px solid red !important;

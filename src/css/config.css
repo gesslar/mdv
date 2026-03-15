@@ -13,114 +13,127 @@
   bottom: 0;
   right: 0;
   width: 50%;
+  height: 50%;
   position: absolute;
   z-index: 9999;
-  padding: 2px;
   border: none;
   outline-style: solid;
-  outline-width: 1px;
+  outline-width: 0.1rem;
   border-radius: var(--radius-lg);
+  padding: 0;
 
   /* Config Panel */
 
   #config-panel-content {
-    button#close-config.config-close-button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      background-color: transparent;
-      box-shadow: none;
-      color: var(--color-zinc-700);
-      cursor: pointer;
+    height: auto;
+    border: 0;
+    margin: 0;
+    padding: 0;
 
-      &:hover {
-        color: var(--color-pink-600);
-        border: none;
-        outline: none;
-      }
+    #config-actions {
+      button#close-config.config-close-button {
+        position: absolute;
+        right: .25rem;
+        top: 0;
+        background-color: transparent;
+        box-shadow: none;
+        color: var(--color-zinc-700);
+        cursor: pointer;
 
-      >.config-close-icon {
-        width: calc(var(--spacing) * 6);
-        height: calc(var(--spacing) * 6);
+        &:hover {
+          color: var(--color-pink-600);
+          border: none;
+          outline: none;
+        }
+
+        >.config-close-icon {
+          width: calc(var(--spacing) * 6);
+          height: calc(var(--spacing) * 6);
+        }
       }
     }
 
-    ul#config-list {
-      padding-inline-start: 0;
-      list-style: none;
+    #config-content {
+      height: 100%;
 
-      li.config-list-item {
-        padding: 0 1em;
+      ul#config-list {
+        padding-inline-start: 0;
+        list-style: none;
 
-        .config-section-header {
-          border-bottom: 1px solid var(--color-zinc-800);
+        li.config-list-item {
+          margin: 1rem 1rem;
 
-          .config-section-title {
-            font-size: 1.24rem;
-            line-height: var(--text-base--line-height);
-            font-weight: var(--font-weight-thin);
-            letter-spacing: var(--tracking-wider);
+          .config-section-header {
+            border-bottom: 1px solid var(--color-zinc-800);
+
+            .config-section-title {
+              font-size: 1.24rem;
+              line-height: var(--text-base--line-height);
+              font-weight: var(--font-weight-thin);
+              letter-spacing: var(--tracking-wider);
+              margin: 0;
+            }
           }
-        }
 
-        .config-section-content {
-          padding-top: 1em;
+          .config-section-content {
+            padding-top: 1em;
 
-          /* Button Group */
-          ul.button-group-horizontal {
-            isolation: isolate;
-            display: inline-flex;
-            border-radius: var(--radius-sm);
-            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            cursor: pointer;
-            padding-inline-start: 0;
-            list-style: none;
-
-            li.button-group-item {
-              position: relative;
+            /* Button Group */
+            ul.button-group-horizontal {
+              isolation: isolate;
               display: inline-flex;
-              align-items: center;
-              color: var(--color-zinc-200);
-              background-color: var(--color-zinc-800);
-              padding-inline: calc(var(--spacing) * 3);
-              padding-block: calc(var(--spacing) * 2);
-              font-size: var(--text-sm);
-              line-height: calc(1.25 / 0.875);
-              font-weight: var(--font-weight-medium);
-              border: 1px solid var(--color-zinc-900);
+              border-radius: var(--radius-sm);
+              box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
               cursor: pointer;
+              padding-inline-start: 0;
+              list-style: none;
 
-              &:hover {
-                background-color: var(--color-zinc-600);
-              }
+              li.button-group-item {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                color: var(--color-zinc-200);
+                background-color: var(--color-zinc-800);
+                padding-inline: calc(var(--spacing) * 3);
+                padding-block: calc(var(--spacing) * 2);
+                font-size: var(--text-sm);
+                line-height: calc(1.25 / 0.875);
+                font-weight: var(--font-weight-medium);
+                border: 1px solid var(--color-zinc-900);
+                cursor: pointer;
 
-              &:focus {
-                z-index: 10;
-              }
+                &:hover {
+                  background-color: var(--color-zinc-600);
+                }
 
-              &:first-child {
-                border-top-left-radius: var(--radius-lg);
-                border-bottom-left-radius: var(--radius-lg);
-              }
+                &:focus {
+                  z-index: 10;
+                }
 
-              &:last-child {
-                border-top-right-radius: var(--radius-lg);
-                border-bottom-right-radius: var(--radius-lg);
-              }
+                &:first-child {
+                  border-top-left-radius: var(--radius-lg);
+                  border-bottom-left-radius: var(--radius-lg);
+                }
 
-              &:not(:first-child) {
-                margin-left: -1px;
-              }
+                &:last-child {
+                  border-top-right-radius: var(--radius-lg);
+                  border-bottom-right-radius: var(--radius-lg);
+                }
 
-              /* Button Group Active State */
-              &.active {
-                background-color: color-mix(in oklab, var(--color-pink-500) 50%, transparent);
-                color: var(--color-white);
-                border-color: color-mix(in oklab, var(--color-pink-600) 50%, transparent);
-              }
+                &:not(:first-child) {
+                  margin-left: -1px;
+                }
 
-              &.active:hover {
-                background-color: color-mix(in oklab, var(--color-pink-500) 70%, transparent);
+                /* Button Group Active State */
+                &.active {
+                  background-color: color-mix(in oklab, var(--color-pink-500) 50%, transparent);
+                  color: var(--color-white);
+                  border-color: color-mix(in oklab, var(--color-pink-600) 50%, transparent);
+                }
+
+                &.active:hover {
+                  background-color: color-mix(in oklab, var(--color-pink-500) 70%, transparent);
+                }
               }
             }
           }

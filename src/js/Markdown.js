@@ -27,17 +27,19 @@ export default class Markdown extends Base {
   constructor(content) {
     super()
 
-    this.#raw = Util.sanitise(content)
-    content ?? ""
+    // Don't sanitize markdown input - it's not HTML yet
+    // Sanitization should happen on the HTML output after rendering, not on markdown source
+    this.#raw = content ?? ""
     this.#initializeMarked()
   }
 
   /**
    * Parses the current markdown source and emits a render event.
    *
+   * @param {boolean} [hotReload=false] - Whether this is a hot reload.
    * @returns {Promise<void>} Resolves when rendering completes.
    */
-  async render() {
+  async render(hotReload = false) {
     const parsed = await this.#marked.parse(this.#raw)
 
     const element = document.createElement("div")
@@ -52,7 +54,7 @@ export default class Markdown extends Base {
     this.#parsed = parsed
     this.element = element
 
-    Notify.emit("markdown-rendered", {markdown: this, toc: this.#toc})
+    Notify.emit("markdown-rendered", {markdown: this, toc: this.#toc, hotReload})
   }
 
   /**
@@ -166,7 +168,7 @@ export default class Markdown extends Base {
       button.setAttribute("aria-label", "Copy code to clipboard")
       button.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2 2v1"></path>
         </svg>`
 
       // Store the text content for copying

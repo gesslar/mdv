@@ -1,3 +1,12 @@
+use notify::{Watcher, RecursiveMode, Event};
+use std::sync::Mutex;
+use tauri::{Emitter, State};
+
+// Global state for file watchers
+struct WatcherState {
+    watcher: Mutex<Option<notify::RecommendedWatcher>>,
+}
+
 // CLI argument commands for replacing Neutralino NL_ARGS
 #[tauri::command]
 fn get_cli_args() -> Vec<String> {
@@ -10,6 +19,53 @@ fn get_runtime_path() -> String {
         .ok()
         .and_then(|p| p.to_str().map(String::from))
         .unwrap_or_default()
+}
+
+#[tauri::command]
+fn watch_file(
+    path: String,
+    window: tauri::Window,
+    state: State<WatcherState>,
+) -> Result<(), String> {
+    use notify::EventKind;
+
+    let mut watcher_guard = state.watcher.lock().unwrap();
+
+    // Stop existing watcher if any
+    *watcher_guard = None;
+
+    // Create new watcher
+    let window_clone = window.clone();
+    let watcher = notify::recommended_watcher(move |res: Result<Event, notify::Error>| {
+        match res {
+            Ok(event) => {
+                // Only emit on modify events
+                if matches!(event.kind, EventKind::Modify(_)) {
+                    let _ = window_clone.emit("file-changed", ());
+                }
+            }
+            Err(_e) => {
+                // Silently ignore watcher errors
+            }
+        }
+    }).map_err(|e| format!("Failed to create watcher: {}", e))?;
+
+    *watcher_guard = Some(watcher);
+
+    // Start watching the file
+    if let Some(w) = watcher_guard.as_mut() {
+        w.watch(std::path::Path::new(&path), RecursiveMode::NonRecursive)
+            .map_err(|e| format!("Failed to watch file: {}", e))?;
+    }
+
+    Ok(())
+}
+
+#[tauri::command]
+fn unwatch_file(state: State<WatcherState>) -> Result<(), String> {
+    let mut watcher_guard = state.watcher.lock().unwrap();
+    *watcher_guard = None;
+    Ok(())
 }
 
 #[cfg(target_os = "linux")]
@@ -36,7 +92,15 @@ pub fn run() {
     .plugin(tauri_plugin_dialog::init())
     .plugin(tauri_plugin_fs::init())
     .plugin(tauri_plugin_log::Builder::default().build())
-    .invoke_handler(tauri::generate_handler![get_cli_args, get_runtime_path])
+    .manage(WatcherState {
+        watcher: Mutex::new(None),
+    })
+    .invoke_handler(tauri::generate_handler![
+        get_cli_args,
+        get_runtime_path,
+        watch_file,
+        unwatch_file
+    ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }

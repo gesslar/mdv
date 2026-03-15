@@ -1,30 +1,15 @@
-import js from "@eslint/js"
-import jsdoc from "eslint-plugin-jsdoc"
+/** @type {import("@gesslar/uglier").UglierOptions} */
+
 import uglify from "@gesslar/uglier"
 
 export default [
-  js.configs.recommended,
-  jsdoc.configs['flat/recommended'],
-  {
-    name: "gesslar/uglier/ignores",
-    ignores: ["src/js/vendor"],
-  },
+  {ignores: ["src-tauri/**", "**/vendor/**"]},
   ...uglify({
     with: [
       "lints-js",
       "lints-jsdoc",
-      "tauri"
+      "node",
+      "tauri",
     ],
-    overrides: {
-      "lints-js": {
-        files: ["src/**/*.js"],
-      },
-      "lints-jsdoc": {
-        files: ["src/**/*.js"],
-      },
-      "tauri": {
-        files: ["src/**/*.js"],
-      },
-    },
-  }),
+  })
 ]

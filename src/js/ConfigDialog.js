@@ -11,6 +11,7 @@ import Util from "./Util.js"
 export default class ConfigDialog extends Base {
   #contentPath = "./html/config-panel.html"
   #themes = ["auto", "light", "dark"]
+  #hotReloadOptions = ["on", "off"]
 
   /**
    * Resolves the active configuration dialog element.
@@ -69,6 +70,7 @@ export default class ConfigDialog extends Base {
     document.body.appendChild(panel)
 
     this.#restoreThemeSettings()
+    this.#restoreHotReloadSettings()
     this.#initialiseActions()
 
     this.element.showModal()
@@ -122,18 +124,26 @@ export default class ConfigDialog extends Base {
   }
 
   /**
-   * Toggles the active class on a theme button. Has the side effect of
-   * toggling the other buttons in the opposite direction if active===true
+   * Toggles the active class on a button. Has the side effect of
+   * toggling the other buttons in the same group in the opposite direction if active===true
    *
    * @param {HTMLElement} button - Button to toggle.
    * @param {boolean} [active] - True when setting the active state.
+   * @param {Array<HTMLElement>} [buttonGroup] - The button group to toggle within.
    * @private
    */
-  #toggleButton(button, active=true) {
+  #toggleButton(button, active=true, buttonGroup=null) {
     if(typeof active !== "boolean")
       throw new TypeError("Active must be true or false.")
 
-    if(active === true) {
+    if(active === true && buttonGroup) {
+      buttonGroup.forEach(e =>
+        e.id === button.id
+          ? e.classList.add("active")
+          : e.classList.remove("active")
+      )
+    } else if(active === true) {
+      // Fallback for backwards compatibility with theme buttons
       this.#themeButtons.forEach(e =>
         e.id === button.id
           ? e.classList.add("active")
@@ -151,6 +161,13 @@ export default class ConfigDialog extends Base {
   get #themeButtons() {
     return this.#themes
       .map(e => `#btn-${e}`)
+      .map(e => document.querySelector(e))
+      .filter(Boolean)
+  }
+
+  get #hotReloadButtons() {
+    return this.#hotReloadOptions
+      .map(e => `#btn-reload-${e}`)
       .map(e => document.querySelector(e))
       .filter(Boolean)
   }
@@ -181,6 +198,57 @@ export default class ConfigDialog extends Base {
     this.#toggleButton(button, true)
   }
 
+  // Hot reload handling
+  /**
+   * Saves the hot reload preference and emits a hot-reload-changed event.
+   *
+   * @param {"on"|"off"} hotReloadPreference - User's hot reload preference.
+   * @private
+   */
+  #saveHotReloadPreference(hotReloadPreference) {
+    localStorage.setItem("mdv-hot-reload", hotReloadPreference)
+    Notify.emit("hot-reload-changed", {enabled: hotReloadPreference === "on"})
+  }
+
+  /**
+   * Returns the currently saved hot reload preference.
+   *
+   * @returns {"on"|"off"} The saved preference or "on" if none (default is on).
+   */
+  getHotReloadPreference() {
+    return localStorage.getItem("mdv-hot-reload") || "on"
+  }
+
+  get #currentHotReloadPreference() {
+    return this.getHotReloadPreference()
+  }
+
+  /**
+   * Restores hot reload preference from localStorage into the toggle UI.
+   *
+   * @returns {void}
+   */
+  #restoreHotReloadSettings() {
+    const hotReloadPreference = this.#currentHotReloadPreference
+    const button = document.querySelector(`#btn-reload-${hotReloadPreference}`)
+
+    this.#toggleButton(button, true, this.#hotReloadButtons)
+  }
+
+  /**
+   * Handles hot reload button click events and saves the preference.
+   *
+   * @param {MouseEvent} event - Click originating from a hot reload button.
+   * @private
+   */
+  #hotReloadButtonClick(event) {
+    const button = event.currentTarget
+    const hotReloadPreference = button.id.replace("btn-reload-", "")
+
+    this.#saveHotReloadPreference(hotReloadPreference)
+    this.#toggleButton(button, true, this.#hotReloadButtons)
+  }
+
   #initialiseActions() {
     const close = document.querySelector("#close-config")
     const panel = this.element
@@ -191,6 +259,11 @@ export default class ConfigDialog extends Base {
     this.#themeButtons.forEach(button => this.initialiseElement(
       `#${button.id}`,
       () => Notify.on("click", evt => this.#themeButtonClick(evt), button)
+    ))
+
+    this.#hotReloadButtons.forEach(button => this.initialiseElement(
+      `#${button.id}`,
+      () => Notify.on("click", evt => this.#hotReloadButtonClick(evt), button)
     ))
 
   }

@@ -23,3 +23,6 @@ work/
 *.njsproj
 *.sln
 *.sw?
+
+# AI thingies
+.claude/
