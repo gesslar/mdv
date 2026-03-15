@@ -5,9 +5,15 @@
   right: 0;
   bottom: 0;
   z-index: 9998;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
 }
 
 #config-panel {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
   top: 0;
   left: 0;
   bottom: 0;
