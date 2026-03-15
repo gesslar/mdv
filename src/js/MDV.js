@@ -1,5 +1,6 @@
 import ConfigDialog from "./ConfigDialog.js"
 import {error} from "./Logging.js"
+import FileWatcher from "./FileWatcher.js"
 import Markdown from "./Markdown.js"
 import MarkdownFile from "./FileReader.js"
 import Notify from "./Notify.js"
@@ -9,7 +10,8 @@ document.addEventListener("DOMContentLoaded", main.bind(this))
 
 const app = {
   register: function(module) {
-    this[module.name] = module
+    const name = module.name || module.constructor.name
+    this[name] = module
   },
 
   unregister: function(module) {
@@ -33,9 +35,15 @@ async function main() {
     Notify.on("file-dialog-requested", async evt => await openFileDialog(evt))
     Notify.on("file-selected", async evt => await loadContent(evt))
     Notify.on("content-loaded", async evt => await displayContent(evt))
+    Notify.on("file-loaded", async evt => await handleFileLoaded(evt))
+    Notify.on("hot-reload-changed", async evt => await handleHotReloadChange(evt))
 
     const ui = new UI()
     await ui.initializeUI()
+
+    // Initialize file watcher
+    const fileWatcher = new FileWatcher()
+    app.register(fileWatcher)
 
     // Check if a file was passed via CLI arguments (e.g., double-click)
     const markdownFile = new MarkdownFile()
@@ -45,7 +53,7 @@ async function main() {
       Notify.emit("file-selected", cliFilePath)
     } else {
       setTimeout(() => {
-        // Notify.emit("file-selected", "/projects/git/mdv/work/fedora-machine-sync-guide.md")
+        Notify.emit("file-selected", "/projects/git/mdv/work/fedora-machine-sync-guide.md")
         // Notify.emit("file-selected", "/projects/git/mdv/work/README.md")
         // Notify.emit("file-selected", "/home/gesslar/Downloads/README (2).md")
       }, 100)
@@ -80,9 +88,24 @@ async function loadContent({detail: path}) {
   markdownFile.remove()
 }
 
-async function displayContent({detail: content}) {
+async function displayContent({detail}) {
+  const content = typeof detail === "string" ? detail : detail.content
+  const hotReload = detail?.hotReload || false
+
   const markdown = new Markdown(content)
-  await markdown.render()
+  await markdown.render(hotReload)
+}
+
+async function handleFileLoaded({detail: filePath}) {
+  const fileWatcher = app[FileWatcher.name]
+  if(fileWatcher)
+    await fileWatcher.watchFile(filePath)
+}
+
+async function handleHotReloadChange() {
+  const fileWatcher = app[FileWatcher.name]
+  if(fileWatcher)
+    await fileWatcher.handleHotReloadChange()
 }
 
 // /** Loads a bundled debug file into the stage; intended for local development. */

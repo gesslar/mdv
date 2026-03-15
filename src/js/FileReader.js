@@ -180,6 +180,7 @@ export default class MarkdownFile extends Base {
         throw new Error("Could not read selected file.")
 
       Notify.emit("content-loaded", content)
+      Notify.emit("file-loaded", filePath)
     } catch(err) {
       throw new Error(`Could not read selected file: ${err}`)
     }

@@ -1,6 +1,6 @@
 [package]
 name = "mdv"
-version = "0.1.0"
+version = "0.1.2"
 description = "mdv like a mofo"
 authors = ["gesslar"]
 edition = "2021"
@@ -26,6 +26,7 @@ tauri-plugin-opener = "2"
 tauri-plugin-shell = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1.0.145"
+notify = "6.1"
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-cli = "2.4.1"

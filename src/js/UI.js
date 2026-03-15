@@ -167,41 +167,76 @@ export default class UI extends Base {
    * Handles the markdown-rendered event by swapping the stage content with the
    * latest render, attaching the TOC, and re-enabling in-page scrolling hooks.
    *
-   * @param {{detail: {markdown: Markdown, toc: TOC}}} payload - Event payload containing the rendered markdown instance.
+   * @param {{detail: {markdown: Markdown, toc: TOC, hotReload: boolean}}} payload - Event payload containing the rendered markdown instance.
    * @returns {Promise<void>} Resolves after the stage is updated.
    */
-  async #displayContent({detail: {markdown,toc}}) {
-    this.#resetStage()
-
-    this.#markdown = markdown
-    const mdElement = markdown.element
-
-    if(!mdElement)
-      return
-
+  async #displayContent({detail: {markdown,toc,hotReload}}) {
     const stage = document.querySelector("#stage")
     const watermark = document.querySelector("#watermark")
     const main = document.querySelector("main")
-    stage.appendChild(mdElement)
 
-    // TOC goes directly in main as a grid child (after stage)
-    const tocElement = toc?.element
-    if(tocElement) {
-      main.appendChild(tocElement)
-      this.#addTocObservers(tocElement)
-      main.classList.add("has-content")
+    if(hotReload) {
+      // During hot reload, clean up old markdown/TOC but preserve the stage structure
+      if(this.#markdown) {
+        this.#markdown.remove()
+      }
+
+      // Replace stage content
+      const existingContent = stage.firstElementChild
+      if(existingContent) {
+        stage.replaceChild(markdown.element, existingContent)
+      } else {
+        stage.appendChild(markdown.element)
+      }
+
+      // Replace TOC
+      const existingToc = main.querySelector("#toc")
+      const tocElement = toc?.element
+      if(existingToc) {
+        if(tocElement) {
+          main.replaceChild(tocElement, existingToc)
+          this.#addTocObservers(tocElement)
+        } else {
+          existingToc.remove()
+        }
+      } else if(tocElement) {
+        main.appendChild(tocElement)
+        this.#addTocObservers(tocElement)
+        main.classList.add("has-content")
+      }
+
+      this.#markdown = markdown
+      this.setupScrolling()
+    } else {
+      // Normal load: full reset and fresh content
+      this.#resetStage()
+      this.#markdown = markdown
+      const mdElement = markdown.element
+
+      if(!mdElement)
+        return
+
+      stage.appendChild(mdElement)
+
+      // TOC goes directly in main as a grid child (after stage)
+      const tocElement = toc?.element
+      if(tocElement) {
+        main.appendChild(tocElement)
+        this.#addTocObservers(tocElement)
+        main.classList.add("has-content")
+      }
+
+      watermark.style.display = "none"
+      stage.style.display = "block"
+
+      this.setupScrolling()
+      stage.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      })
+
+      this.#flashStage(stage)
     }
-
-    watermark.style.display = "none"
-    stage.style.display = "block"
-
-    this.setupScrolling()
-    stage.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    })
-
-    this.#flashStage(stage)
   }
 
   /**
