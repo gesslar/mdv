@@ -27,7 +27,7 @@
     "eslint": "^10.2.0",
     "eslint-plugin-jsdoc": "^62.8.0",
     "globals": "^17.5.0",
-    "marked": "^17.0.4",
+    "marked": "^18.0.0",
     "marked-highlight": "^2.2.3"
   }
 }
