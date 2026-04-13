@@ -19,7 +19,7 @@
     "version": "bash scripts/sync-version.sh"
   },
   "devDependencies": {
-    "@gesslar/uglier": "^2.2.0",
+    "@gesslar/uglier": "^2.4.1",
     "@highlightjs/cdn-assets": "^11.11.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@tauri-apps/cli": "^2.10.1",
