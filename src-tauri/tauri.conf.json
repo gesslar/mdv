@@ -52,8 +52,7 @@
         "role": "Viewer"
       }
     ],
-    "license": "Unlicense",
-    "licenseFile": "UNLICENSE"
+    "license": "0BSD"
   },
   "plugins": {
     "cli": {
