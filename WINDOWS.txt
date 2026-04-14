@@ -1,0 +1,12 @@
+# Windows
+
+## Install DotNET and NSIS
+winget install Microsoft.DotNet.SDK.9 NSIS.NSIS
+
+powershell -Command "Start-Process PowerShell -Verb RunAs -ArgumentList '-NoExit -Command \"winget install Microsoft.DotNet.SDK.9 NSIS.NSIS\"'"
+powershell -Command "Start-Process PowerShell -Verb RunAs -ArgumentList '-NoExit -Command \"dotnet tool install --global wix\"'"
+## Install wix
+dotnet tool install --global wix
+
+## Or all at once
+powershell -Command "Start-Process PowerShell -Verb RunAs -ArgumentList '-NoExit -Command \"winget install Microsoft.DotNet.SDK.9 NSIS.NSIS ; dotnet tool install --global wix\"'"
