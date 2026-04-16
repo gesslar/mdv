@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Build mdv bundles inside a Linux container.
 #
-#   docker/build.sh fedora43    # -> dist/fedora43/*.rpm
+#   docker/build.sh fedora    # -> dist/fedora/*.rpm
 #   docker/build.sh debian      # -> dist/debian/*.deb
 #   docker/build.sh appimage    # -> dist/appimage/*.AppImage
 #
@@ -13,9 +13,9 @@ set -euo pipefail
 
 DISTRO="${1:-}"
 case "$DISTRO" in
-  fedora43|debian|appimage) ;;
+  fedora|debian|appimage) ;;
   *)
-    echo "usage: $0 {fedora43|debian|appimage}" >&2
+    echo "usage: $0 {fedora|debian|appimage}" >&2
     exit 2
     ;;
 esac
