@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Build mdv bundles inside a Linux container.
 #
-#   docker/build.sh fedora43    # -> dist/fedora43/*.rpm, *.AppImage
+#   docker/build.sh fedora43    # -> dist/fedora43/*.rpm
 #   docker/build.sh debian      # -> dist/debian/*.deb
+#   docker/build.sh appimage    # -> dist/appimage/*.AppImage
 #
 # Named volumes are used for src-tauri/target and node_modules so the host
 # project tree isn't polluted with Linux build artefacts (and Windows-side
@@ -12,9 +13,9 @@ set -euo pipefail
 
 DISTRO="${1:-}"
 case "$DISTRO" in
-  fedora43|debian) ;;
+  fedora43|debian|appimage) ;;
   *)
-    echo "usage: $0 {fedora43|debian}" >&2
+    echo "usage: $0 {fedora43|debian|appimage}" >&2
     exit 2
     ;;
 esac
@@ -34,6 +35,8 @@ docker build -f "$DOCKERFILE" -t "$IMAGE" "$PROJECT_DIR"
 
 echo "==> running $IMAGE"
 docker run --rm \
+  --user "$(id -u):$(id -g)" \
+  -e HOME=/tmp \
   -v "$PROJECT_DIR":/build \
   -v "$TARGET_VOL":/build/src-tauri/target \
   -v "$NODE_VOL":/build/node_modules \
