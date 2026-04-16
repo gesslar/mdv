@@ -8,6 +8,7 @@
     "build": "tauri build",
     "bundle": "NO_STRIP=true tauri bundle",
     "bundle:windows": "tauri bundle",
+    "docker:appimage": "node docker/build.mjs appimage",
     "docker:fedora43": "node docker/build.mjs fedora43",
     "docker:debian": "node docker/build.mjs debian",
     "dist:rpm": "bash scripts/post-bundle.sh",

@@ -32,6 +32,11 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
       | sh -s -- -y --default-toolchain stable --profile minimal \
  && chmod -R a+rwX "$CARGO_HOME" "$RUSTUP_HOME"
 
+# Pre-create named-volume mount points with open perms so containers run
+# as an arbitrary host UID can write to them on first volume init.
+RUN mkdir -p /opt/cargo/registry /build/src-tauri/target /build/node_modules \
+ && chmod -R a+rwX /opt/cargo /build
+
 WORKDIR /build
 
 COPY <<'EOF' /usr/local/bin/mdv-build

@@ -18,13 +18,19 @@ import {fileURLToPath} from "node:url"
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url))
 const PROJECT_DIR = resolve(SCRIPT_DIR, "..")
 
+const distros = new Map([
+  ["appimage", "appimage"],
+  ["fedora43", "fedora43"],
+  ["debian", "debian"],
+])
+
 const distro = process.argv[2]
-if (!["fedora43", "debian"].includes(distro)) {
-  console.error("usage: node docker/build.mjs {fedora43|debian}")
+if (!distros.has(distro)) {
+  console.error("usage: node docker/build.mjs {appimage|fedora43|debian}")
   process.exit(2)
 }
 
-const image = `mdv-build-${distro}:latest`
+const image = `mdv-build-${distros.get(distro)}:latest`
 const dockerfile = resolve(SCRIPT_DIR, `Dockerfile.${distro}`)
 const outDir = resolve(PROJECT_DIR, "dist", distro)
 mkdirSync(outDir, {recursive: true})
@@ -38,6 +44,14 @@ const mounts = [
   ["-v", `mdv-${distro}-cargo-registry:/opt/cargo/registry`],
 ].flat()
 
+// Run as the host user on POSIX so bind-mounted outputs (dist/, target/)
+// aren't root-owned. On Windows, Docker Desktop maps uids differently and
+// process.getuid doesn't exist, so skip.
+const userArgs = process.platform === "win32"
+  ? []
+  : ["--user", `${process.getuid()}:${process.getgid()}`,
+     "-e", "HOME=/tmp"]
+
 function run(cmd, args, label) {
   console.log(`==> ${label}`)
   const result = spawnSync(cmd, args, {stdio: "inherit", shell: false})
@@ -50,7 +64,7 @@ function run(cmd, args, label) {
 
 run("docker", ["build", "-f", dockerfile, "-t", image, PROJECT_DIR],
     `building image ${image}`)
-run("docker", ["run", "--rm", ...mounts, image],
+run("docker", ["run", "--rm", ...userArgs, ...mounts, image],
     `running ${image}`)
 
 console.log(`==> done. Artefacts in dist/${distro}/`)

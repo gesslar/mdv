@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.7
-# Build + bundle mdv on Fedora 43 (RPM + AppImage).
+# Build + bundle mdv on Fedora 43.
 # Usage: see docker/build.sh fedora43
 
 FROM fedora:43
@@ -7,12 +7,9 @@ FROM fedora:43
 ENV CARGO_HOME=/opt/cargo \
     RUSTUP_HOME=/opt/rustup \
     PATH=/opt/cargo/bin:/usr/local/bin:/usr/bin:/bin \
-    NO_STRIP=true \
-    APPIMAGE_EXTRACT_AND_RUN=1
+    NO_STRIP=true
 
-# Core build deps + Tauri v2 system deps + RPM tooling + AppImage runtime helpers.
-# desktop-file-utils is needed by rpm scriptlets; fuse-libs lets AppImages run if
-# APPIMAGE_EXTRACT_AND_RUN isn't honoured for some reason.
+# Core build deps + Tauri v2 system deps + RPM tooling runtime helpers.
 RUN dnf install -y --setopt=install_weak_deps=False \
       gcc gcc-c++ make \
       pkgconf-pkg-config \
@@ -24,8 +21,6 @@ RUN dnf install -y --setopt=install_weak_deps=False \
       nodejs npm \
       rpm-build rpmdevtools rpmrebuild \
       desktop-file-utils \
-      xdg-utils \
-      fuse-libs \
  && dnf clean all
 
 # Rust toolchain (minimal profile — we only need cargo + rustc).
@@ -33,11 +28,10 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
       | sh -s -- -y --default-toolchain stable --profile minimal \
  && chmod -R a+rwX "$CARGO_HOME" "$RUSTUP_HOME"
 
-# Pre-seed linuxdeploy into the Tauri cache so the AppImage bundle step is offline.
-RUN mkdir -p /root/.cache/tauri \
- && curl -fSL -o /root/.cache/tauri/linuxdeploy-x86_64.AppImage \
-      https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage \
- && chmod +x /root/.cache/tauri/linuxdeploy-x86_64.AppImage
+# Pre-create named-volume mount points with open perms so containers run
+# as an arbitrary host UID can write to them on first volume init.
+RUN mkdir -p /opt/cargo/registry /build/src-tauri/target /build/node_modules \
+ && chmod -R a+rwX /opt/cargo /build
 
 WORKDIR /build
 
@@ -57,8 +51,8 @@ if [[ ! -f node_modules/.package-lock.json ]] \
   cp package-lock.json node_modules/.package-lock.json
 fi
 
-echo "==> tauri build --bundles rpm,appimage"
-NO_STRIP=true npx tauri build --bundles rpm,appimage
+echo "==> tauri build --bundles rpm"
+NO_STRIP=true npx tauri build --bundles rpm
 
 echo "==> fix-rpm.sh"
 bash scripts/fix-rpm.sh
@@ -66,8 +60,7 @@ bash scripts/fix-rpm.sh
 OUT=dist/fedora43
 mkdir -p "$OUT"
 cp -v src-tauri/target/release/bundle/rpm/*.rpm "$OUT/"
-cp -v src-tauri/target/release/bundle/appimage/*.AppImage "$OUT/"
-echo "==> artifacts written to $OUT"
+echo "==> artifact written to $OUT"
 EOF
 RUN chmod +x /usr/local/bin/mdv-build
 
