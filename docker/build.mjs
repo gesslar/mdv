@@ -3,12 +3,14 @@
 // Works from Windows (cmd, PowerShell, Git Bash) and Linux/macOS because node
 // + docker are available the same way on all of them.
 //
-//   node docker/build.mjs fedora43
+//   node docker/build.mjs fedora4
 //   node docker/build.mjs debian
+//   node docker/build.mjs appimage
 //
 // Or via npm:
-//   npm run docker:fedora43
+//   npm run docker:fedora
 //   npm run docker:debian
+//   npm run docker:appimage
 
 import {spawnSync} from "node:child_process"
 import {mkdirSync, readdirSync, statSync} from "node:fs"
@@ -20,13 +22,13 @@ const PROJECT_DIR = resolve(SCRIPT_DIR, "..")
 
 const distros = new Map([
   ["appimage", "appimage"],
-  ["fedora43", "fedora43"],
+  ["fedora", "fedora"],
   ["debian", "debian"],
 ])
 
 const distro = process.argv[2]
 if (!distros.has(distro)) {
-  console.error("usage: node docker/build.mjs {appimage|fedora43|debian}")
+  console.error("usage: node docker/build.mjs {appimage|fedora|debian}")
   process.exit(2)
 }
 
